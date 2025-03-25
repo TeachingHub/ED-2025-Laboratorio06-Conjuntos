@@ -22,7 +22,6 @@ type
     {Otras operaciones}
     procedure union(c1, c2: tConjunto; var c3: tConjunto);
     procedure intersection(c1, c2: tConjunto; var c3: tConjunto);
-    procedure difference(c1, c2: tConjunto; var c3: tConjunto);
 
 
 implementation

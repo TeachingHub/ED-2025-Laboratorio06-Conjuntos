@@ -13,10 +13,15 @@
 
 <!-- TOC -->
 
-- [Ejercicio 1: Conjuntos en Pascal](#ejercicio-1-conjuntos-en-pascal)
-- [Ejercicio 2: Conjuntos a través de Listas](#ejercicio-2-conjuntos-a-trav%C3%A9s-de-listas)
-- [Ejercicio 3: Introducción a Conjuntos a través de Arrays y con función Hash](#ejercicio-3-introducci%C3%B3n-a-conjuntos-a-trav%C3%A9s-de-arrays-y-con-funci%C3%B3n-hash)
-- [Ejercicio 4: Creando un HashMap: Clave - Valor](#ejercicio-4-creando-un-hashmap-clave---valor)
+- [Ejercicios de Conjuntos: Conjuntos en Pascal y Conjuntos a través de Listas y Arrays](#ejercicios-de-conjuntos-conjuntos-en-pascal-y-conjuntos-a-trav%C3%A9s-de-listas-y-arrays)
+        - [Información del Proyecto](#informaci%C3%B3n-del-proyecto)
+- [¿Cómo enfrentarse a los ejercicios?](#%C2%BFc%C3%B3mo-enfrentarse-a-los-ejercicios)
+- [Ejercicio 1: Introducción a Conjuntos en Pascal](#ejercicio-1-introducci%C3%B3n-a-conjuntos-en-pascal)
+- [Ejercicio 2: Operaciones básicas con conjuntos](#ejercicio-2-operaciones-b%C3%A1sicas-con-conjuntos)
+- [Ejercicio 3: Conjuntos a través de Listas](#ejercicio-3-conjuntos-a-trav%C3%A9s-de-listas)
+- [Ejercicio 4: Introducción a Conjuntos a través de Arrays y con función Hash](#ejercicio-4-introducci%C3%B3n-a-conjuntos-a-trav%C3%A9s-de-arrays-y-con-funci%C3%B3n-hash)
+- [Ejercicio 5: Creando un HashMap: Clave - Valor Opcional](#ejercicio-5-creando-un-hashmap-clave---valor-opcional)
+- [Ejercicio 6: Aplicación Práctica de Conjuntos - El bingo](#ejercicio-6-aplicaci%C3%B3n-pr%C3%A1ctica-de-conjuntos---el-bingo)
 - [Otros ejercicios propuestos](#otros-ejercicios-propuestos)
     - [Multiset](#multiset)
     - [Añade nuevas funcionalidades a uMiConjunto.pas](#a%C3%B1ade-nuevas-funcionalidades-a-umiconjuntopas)
@@ -49,7 +54,7 @@ Antes de comenzar con cada uno de los ejercicios:
 4. Realiza los ejercicios de manera ordenada, comprobando que cada uno de ellos funciona correctamente antes de pasar al siguiente.
 
 
-# Ejercicio 1: Conjuntos en Pascal
+# Ejercicio 1: Introducción a Conjuntos en Pascal
 
 En este ejercicio vamos a trabajar con conjuntos en Pascal. Un conjunto es una colección de elementos sin orden y sin repetición. En Pascal, los conjuntos son un tipo de dato que permite almacenar elementos de un tipo específico. En este caso, vamos a trabajar con conjuntos de enteros.
 
@@ -58,29 +63,79 @@ Para hacer este ejercicio debes localizar los siguientes archivos:
 - `conjuntos_ej1.pas`: Programa principal en el que deberás implementar las funciones y procedimientos necesarios para trabajar con conjuntos de enteros.
 - `uListaEnlazadaSimple.pas`: Unidad que contiene la definición de una lista enlazada simple. Esta unidad ya está implementada y no deberás modificarla.
 
-Localiza el archivo `conjuntos_ej1.pas` y dentro de él, encontrarás el procedimiento `procedure eliminar_duplicados(var list: tListaSimple);`. Este procedimiento recibe una lista enlazada simple y elimina los elementos duplicados de la misma. Deberás implementar este procedimiento haciendo uso de conjuntos. 
-
-Para ello, genera un conjunto en pascal, recorre la lista enlazada y añade los elementos a dicho conjunto. Si un elemento ya está en el conjunto, elimínalo de la lista enlazada. Al finalizar, la lista enlazada no deberá contener elementos duplicados.
+Localiza el archivo `conjuntos_ej1.pas` y dentro de él, encontrarás el procedimiento `procedure generar_lista_sin_duplicados(var list, aux: tListaSimple);`. Este procedimiento recibe dos listas. La primera lista contiene elementos duplicados y la segunda lista deberá contener los elementos de la primera lista sin duplicados y con un orden ascendente. En otras palabras, se deben copiar los elementos de la primera lista a la segunda lista, pero sin duplicados y ordenados de menor a mayor.
 
 Aunque este ejercicio se pueda hacer perfectamente sin utilizar conjuntos, el objetivo es que practiques con ellos y veas cómo pueden facilitar la resolución de ciertos problemas.
+
+Restricciones:
+- No se puede utilizar la función `copy` para copiar la lista.
+- No se puede utilizar la función `in_list` para comprobar si un elemento está en la lista.
+- La complejidad de la solución debe ser O(n).
+- No se pueden pasar los elementos a otras lista y usar la función `sort`.
 
 Resultado esperado:
 
 ```
-Ejercicio: Eliminar duplicados de una lista
+Ejercicio: Generar una lista con elementos sin duplicados y ordenada.
 ===========================================
 
-Caso 1: 1 3 4 5 5 2 3  -> 1 3 4 5 2  bien.
+Caso 1: 1 3 4 5 5 2 3  -> 1 2 3 4 5  bien.
 Caso 2: 1 1  -> 1  bien.
 ```
 
-# Ejercicio 2: Conjuntos a través de Listas
+# Ejercicio 2: Operaciones básicas con conjuntos
 
-En este ejercicio vamos a crear un conjunto a partir de una lista enlazada simple. Para ello, deberás localizar los tres siguientes ficheros: 
+En este ejercicio vamos a trabajar con conjuntos en Pascal y vamos a programar algunas de las operaciones básicas que se pueden realizar con conjuntos. Para ello, deberás localizar el archivo `conjuntos_ej2.pas`. 
 
-- `conjuntos_ej2.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio.
+En este programa deberás implementar las siguientes funciones y procedimientos:
+- `diferencia_simetrica_conjuntos`: Dados dos conjuntos A y B, la diferencia simétrica de A y B es el conjunto de elementos que están en A o en B, pero no en ambos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia simétrica de A y B es [1, 2, 4, 5].
+- `es_subconjunto`: Implementa una función que reciba dos conjuntos A y B y devuelva true si A es subconjunto de B, y false en caso contrario. Por ejemplo, si A = [1, 2] y B = [1, 2, 3], entonces A es subconjunto de B.
+-`interseccion_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la intersección de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la intersección de A y B es [3].
+-`union_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la unión de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la unión de A y B es [1, 2, 3, 4, 5].
+-`diferencia_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la diferencia de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia de A y B es [1, 2].
+
+En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
+![Operaciones sobre conjuntos](figs/operaciones.jpg)
+
+Resultado esperado:
+
+```
+Ejercicio 2.1: Diferencia simétrica de conjuntos
+Diferencia simétrica de A y B: TRUE
+Diferencia simétrica de A y B: TRUE
+Diferencia simétrica de A y B: TRUE
+-----------------------------------------------
+Ejercicio 2.2: Es subconjunto
+A es subconjunto de B: TRUE
+A es subconjunto de B: TRUE
+A es subconjunto de B: TRUE
+-----------------------------------------------
+Ejercicio 2.3: Intersección de conjuntos
+Intersección de A y B: TRUE
+Intersección de A y B: TRUE
+Intersección de A y B: TRUE
+-----------------------------------------------
+Ejercicio 2.4: Unión de conjuntos
+Unión de A y B: TRUE
+Unión de A y B: TRUE
+Unión de A y B: TRUE
+-----------------------------------------------
+Ejercicio 2.5: Diferencia de conjuntos
+Diferencia de A y B: TRUE
+Diferencia de A y B: TRUE
+Diferencia de A y B: TRUE
+-----------------------------------------------
+```
+
+# Ejercicio 3: Conjuntos a través de Listas
+
+En este ejercicio vamos a crear un conjunto a cuyo almacenamiento interno va a ser una lista enlazada simple. Para ello, deberás localizar los tres siguientes ficheros: 
+
+- `conjuntos_ej3.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio.
 - `uListaEnlazadaSimple.pas`: Unidad que contiene la definición de una lista enlazada simple. Esta unidad ya está implementada y no deberás modificarla.
 - `uMiConjunto.pas`: Unidad que deberás implementar. 
+
+¡Atención! Tendras el rol de desarrollador de la unidad `uMiConjunto.pas` pero a la vez, el rol de usuario de la unidad `uListaEnlazadaSimple.pas`. Es decir, deberás utilizar la lista enlazada simple para implementar el conjunto.
 
 Dentro de la unidad `uMiConjunto.pas` deberás implementar un conjunto en Pascal a partir de una lista enlazada simple. Para ello, deberás implementar las siguientes funciones y procedimientos:
 
@@ -96,8 +151,7 @@ Dentro de la unidad `uMiConjunto.pas` deberás implementar un conjunto en Pascal
 - `procedure intersection(c1, c2: tConjunto; var c3: tConjunto)`: Realiza la intersección de dos conjuntos. Esta función deberá devolver un nuevo conjunto con los elementos comunes de los conjuntos `c1` y `c2`. Por ejemplo, si `c1` contiene los elementos `1, 2, 3` y `c2` contiene los elementos `3, 4, 5`, el conjunto `c3` deberá contener el elemento `3`.
 - `procedure difference(c1, c2: tConjunto; var c3: tConjunto)`: Realiza la diferencia de dos conjuntos. Esta función deberá devolver un nuevo conjunto con los elementos que están en `c1` pero no en `c2`. Por ejemplo, si `c1` contiene los elementos `1, 2, 3` y `c2` contiene los elementos `3, 4, 5`, el conjunto `c3` deberá contener los elementos `1, 2`.
 
-En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
-![Operaciones sobre conjuntos](figs/operaciones.jpg)
+
 
 
 Resultado esperado:
@@ -141,11 +195,11 @@ difference (un elemento común)                                          Sí
 ```
 
 
-# Ejercicio 3: Introducción a Conjuntos a través de Arrays y con función Hash
+# Ejercicio 4: Introducción a Conjuntos a través de Arrays y con función Hash
 
 En este ejercicio vamos a trabajar con conjuntos a través de arrays y con función hash. Para ello, deberás localizar los siguientes ficheros:
 
-- `conjuntos_ej3.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. Necesitarás implementar algunas funciones y procedimientos en este archivo.
+- `conjuntos_ej4$.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. Necesitarás implementar algunas funciones y procedimientos en este archivo.
 - `uHashSet.pas`: Unidad que deberás implementar parcialmente.
 
 El principal problema que tiene el conjunto creado en el ejercicio anterior es que una operación sobre una lista parte determinar si un elemento está no es muy eficiente. En una implementación básica, esto requerirá recorrer toda la lista para determinar si el elemento está presente o no.
@@ -168,7 +222,7 @@ Pistas:
 - Puedes utilizar el operador módulo (`mod`) para obtener el resto de una división.
 
 
-Una vez lo tengas, ejecuta el fichero `conjuntos_ej3.pas` y comprueba que el conjunto funciona correctamente.
+Una vez lo tengas, ejecuta el fichero `conjuntos_ej4.pas` y comprueba que el conjunto funciona correctamente.
 
 Ya hemos determinado nuestra primera función hash. Ahora la pregunta inmediata que te debería surgir es... ¿y si dos strings diferentes devuelven el mismo valor? ¿Qué pasa si la suma de los valores ASCII de los caracteres de "hola" y "aloh" es la misma? ¿Cómo podemos solucionar esto? 
 
@@ -184,11 +238,11 @@ Algunas ideas:
 
 Para comprobar si el número de colisiones ha disminuido, ejecuta el programa principal y comprueba que el histograma ha cambiado.
 
-# Ejercicio 4: Creando un HashMap: Clave - Valor
+# Ejercicio 5: Creando un HashMap: Clave - Valor (Opcional)
 
 Un HashMap es una estructura de datos que permite almacenar pares clave-valor. En este ejercicio, vamos a implementar un HashMap. Para ello, deberás localizar los siguientes ficheros:
 
-- `conjuntos_ej4.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. No debería ser necesario modificar este archivo.
+- `conjuntos_ej5.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. No debería ser necesario modificar este archivo.
 - `uHashMap.pas`: Unidad que deberás implementar.
 
 Nos vamos a centrar en la implementación de la unidad `uHashMap.pas`. En esta unidad, deberás implementar un HashMap que reciba una clave de tipo `string` y un valor de tipo `integer`. 
@@ -220,6 +274,28 @@ Resultado esperado:
 contains (elemento inexistente)                             0                             0  Sí
        contains (tabla vacía)                             0                             0  Sí
 ```
+
+
+# Ejercicio 6: Aplicación Práctica de Conjuntos - El bingo
+Queremos implementar un juego de bingo en Pascal. El bingo consta de un bombo de 90 bolas (numeradas del 1 al 90) que se van extrayendo y de tantos cartones como jugadores con 10 números del 1 al 90 en cada cartón. Se pide:
+1. Implementar el TAD Bombo_Bingo utilizando un conjunto de enteros del 1 al 90 cuyas operaciones básicas serán:
+- inicializar: deja el bombo listo para empezar a jugar
+- extraer_numero: elige un número de los que aún no han salido y lo retorna
+- introducir_numero: es algo raro, pero a veces necesario devolver un número al bombo, lo cual se hace con esta operación
+- restantes: permite consulta cuántos números quedan en el bombo.
+Para la implementación interna del conjunto, utiliza un array de booleanos.
+2) Implementar el TAD Cartón_Bingo, que tendrá 15 enteros no repetidos entre 1 y 90 y que incluirá las siguientes operaciones:
+- inicializar: genera 15 números aleatorios y los deja listos para empezar a jugar
+- tachar_numero: cuando sale del bombo un número que está en su cartón, el jugador debe marcarlo utilizando este método
+- consultar_numero: permite consultar si un cierto número está en el cartón
+- consultar_linea: Se dice que un cartón “canta línea” cuando tiene 5 números de una fila consecutivos ya marcados porque han salido en el juego. Asumiremos que la primera línea son los 5 primeros números, la segunda los 5 siguientes y la tercera los 5 últimos.
+- consultar_bingo: Se dice que un cartón “canta bingo” cuando tiene los 15 números ya marcados porque han salido en el juego.
+3) Implementar el juego siguiendo el siguiente proceso simplificado:
+- Inicializar el bombo y tras determinar el número de cartones, inicializarlos
+- Ir sacando sucesivamente números y anotándolos en los cartones.
+- Cada vez que sale un número, se debe comprobar si hay línea o bingo en algún cartón y si lo hay notificarlo (sacar un msg por pantalla).
+- Una vez cantada línea por parte de algún cartón, nadie más puede cantar línea.
+- El juego termina cuando algún cartón canta bingo.
 
 # Otros ejercicios propuestos
 

@@ -1,81 +1,285 @@
-program HashSetExample;
+program conjuntos_ej2;
 
 uses
-    SysUtils, 
-    uHashSet,
-    math;
+  SysUtils,
+  uMiConjunto;
 
-
-const
-    HashSetSize = 10;
+type
+  TTestResult = record
+    Prueba: string;
+    Resultado: string;
+    ResultadoEsperado: string;
+    OK: string;
+  end;
 
 var
-    my_hash_set: THashSet;
-    intento: string;
+  testResults: array of TTestResult;
+  testCount: integer = 0;
 
+procedure AddTestResult(const prueba, resultado, resultadoEsperado: string);
+begin
+  Inc(testCount);
+  SetLength(testResults, testCount);
+  testResults[testCount - 1].Prueba := prueba;
+  testResults[testCount - 1].Resultado := resultado;
+  testResults[testCount - 1].ResultadoEsperado := resultadoEsperado;
+  if resultado = resultadoEsperado then
+    testResults[testCount - 1].OK := 'Sí'
+  else
+    testResults[testCount - 1].OK := 'No';
+end;
 
-{ Ejercicio 3.3.}
-procedure histograma_colisiones;
+procedure TestInitialize;
 var
-    i, t: Integer;
-    letra: Char;
-    histograma: array[0..HashSetSize-1] of integer;
+  c: tConjunto;
+begin
+  init(c);
+  AddTestResult('init', BoolToStr(is_empty_con(c)), BoolToStr(True));
+end;
 
-begin 
-    // Inicializar el HashSet como vacío
-    FillChar(histograma, SizeOf(histograma), 0);
-    t := 0;
-    WriteLn('Total de colisiones: ', t);
+procedure TestAdd;
+var
+  c: tConjunto;
+begin
+  init(c);
+  add(c, 10);
+  AddTestResult('add (un elemento)', to_string_con(c), '10 ');
+  add(c, 20);
+  AddTestResult('add (dos elementos)', to_string_con(c), '10 20 ');
+  add(c, 10); // Intentar añadir un elemento duplicado
+  AddTestResult('add (elemento duplicado)', to_string_con(c), '10 20 ');
+end;
+
+procedure TestRemove;
+var
+  c: tConjunto;
+begin
+  init(c);
+  add(c, 10);
+  add(c, 20);
+  remove(c, 10);
+  AddTestResult('remove (un elemento)', to_string_con(c), '20 ');
+  remove(c, 30); // Intentar eliminar un elemento que no existe
+  AddTestResult('remove (elemento inexistente)', to_string_con(c), '20 ');
+  remove(c, 20);
+  AddTestResult('remove (último elemento)', to_string_con(c), '');
+end;
+
+procedure TestContains;
+var
+  c: tConjunto;
+begin
+  init(c);
+  add(c, 10);
+  AddTestResult('contains (elemento existente)', BoolToStr(contains(c, 10)), BoolToStr(True));
+  AddTestResult('contains (elemento inexistente)', BoolToStr(contains(c, 20)), BoolToStr(False));
+  init(c);
+  AddTestResult('contains (conjunto vacío)', BoolToStr(contains(c, 10)), BoolToStr(False));
+end;
+
+procedure TestIsEmpty;
+var
+  c: tConjunto;
+begin
+  init(c);
+  AddTestResult('is_empty_con (conjunto vacío)', BoolToStr(is_empty_con(c)), BoolToStr(True));
+  add(c, 10);
+  AddTestResult('is_empty_con (conjunto no vacío)', BoolToStr(is_empty_con(c)), BoolToStr(False));
+end;
+
+procedure TestSize;
+var
+  c: tConjunto;
+begin
+  init(c);
+  AddTestResult('size (conjunto vacío)', IntToStr(size(c)), '0');
+  add(c, 10);
+  AddTestResult('size (un elemento)', IntToStr(size(c)), '1');
+  add(c, 20);
+  AddTestResult('size (dos elementos)', IntToStr(size(c)), '2');
+  add(c, 10); // Intento de añadir duplicado no incrementa el tamaño
+  AddTestResult('size (con duplicado)', IntToStr(size(c)), '2');
+end;
+
+procedure TestToString;
+var
+  c: tConjunto;
+begin
+  init(c);
+  AddTestResult('to_string (conjunto vacío)', to_string_con(c), '');
+  add(c, 30);
+  add(c, 10);
+  add(c, 20);
+  AddTestResult('to_string (conjunto con elementos)', to_string_con(c), '30 10 20 ');
+end;
+
+procedure TestEmpty;
+var
+  c: tConjunto;
+begin
+  init(c);
+  add(c, 10);
+  add(c, 20);
+  empty(c);
+  AddTestResult('empty', to_string_con(c), '');
+  AddTestResult('empty (is_empty_con)', BoolToStr(is_empty_con(c)), BoolToStr(True));
+end;
+
+procedure TestUnion;
+var
+  c1, c2, c3: tConjunto;
+begin
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c1, 2);
+  add(c2, 2);
+  add(c2, 3);
+  union(c1, c2, c3);
+  AddTestResult('union (con elementos comunes)', to_string_con(c3), '1 2 3 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c1, 2);
+  add(c2, 3);
+  add(c2, 4);
+  union(c1, c2, c3);
+  AddTestResult('union (sin elementos comunes)', to_string_con(c3), '1 2 3 4 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  union(c1, c2, c3);
+  AddTestResult('union (ambos vacíos)', to_string_con(c3), '');
+end;
+
+procedure TestIntersection;
+var
+  c1, c2, c3: tConjunto;
+begin
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c1, 2);
+  add(c2, 2);
+  add(c2, 3);
+  intersection(c1, c2, c3);
+  AddTestResult('intersection (con elementos comunes)', to_string_con(c3), '2 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c1, 2);
+  add(c2, 3);
+  add(c2, 4);
+  intersection(c1, c2, c3);
+  AddTestResult('intersection (sin elementos comunes)', to_string_con(c3), '');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c2, 1);
+  intersection(c1, c2, c3);
+  AddTestResult('intersection (un elemento común)', to_string_con(c3), '1 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  intersection(c1, c2, c3);
+  AddTestResult('intersection (ambos vacíos)', to_string_con(c3), '');
+end;
+
+procedure TestDifference;
+var
+  c1, c2, c3: tConjunto;
+begin
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c1, 2);
+  add(c2, 2);
+  add(c2, 3);
+  difference(c1, c2, c3);
+  AddTestResult('difference (con elementos comunes)', to_string_con(c3), '1 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c1, 2);
+  add(c2, 3);
+  add(c2, 4);
+  difference(c1, c2, c3);
+  AddTestResult('difference (sin elementos comunes)', to_string_con(c3), '1 2 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  add(c2, 1);
+  difference(c1, c2, c3);
+  AddTestResult('difference (un elemento común)', to_string_con(c3), '');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  difference(c1, c2, c3);
+  AddTestResult('difference (ambos vacíos)', to_string_con(c3), '');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c1, 1);
+  difference(c1, c2, c3);
+  AddTestResult('difference (segundo vacío)', to_string_con(c3), '1 ');
+
+  init(c1);
+  init(c2);
+  init(c3);
+  add(c2, 1);
+  difference(c1, c2, c3);
+  AddTestResult('difference (primero vacío)', to_string_con(c3), '');
 end;
 
 
+procedure PrintTestResults;
+var
+  i: integer;
+begin
+  Writeln('Prueba':30, 'Resultado':20, 'Resultado Esperado':20, 'OK':5);
+  Writeln(StringOfChar('-', 75));
+  for i := 0 to High(testResults) do
+  begin
+    Writeln(
+      testResults[i].Prueba:30,
+      testResults[i].Resultado:20,
+      testResults[i].ResultadoEsperado:20,
+      testResults[i].OK:5
+    );
+  end;
+end;
 
 begin
-    // Inicializar el HashSet como vacío
-    FillChar(my_hash_set, SizeOf(my_hash_set), 0);
-    WriteLn('HashSet inicializado vacío.');
-    show_hashset_state(my_hash_set);
-    WriteLn('--------------------');
+  TestInitialize;
+  TestAdd;
+  TestRemove;
+  TestContains;
+  TestIsEmpty;
+  TestSize;
+  TestToString;
+  TestEmpty;
+  TestUnion;
+  TestIntersection;
+  TestDifference;
 
-    // Añadir elementos y mostrar el estado
-    add(my_hash_set, 'Jones');
-    WriteLn('''Jones'' está en el HashSet: ', contains(my_hash_set, 'Jones'));
-    show_hashset_state(my_hash_set);
-    WriteLn('--------------------');
+  PrintTestResults;
 
-    add(my_hash_set, 'Lisa');
-    WriteLn('''Lisa'' está en el HashSet: ', contains(my_hash_set, 'Lisa'));
-    WriteLn('''Bob'' está en el HashSet: ', contains(my_hash_set, 'Bob')); // Aún no se ha añadido Bob
-    show_hashset_state(my_hash_set);
-    WriteLn('--------------------');
-
-    add(my_hash_set, 'Bob');
-    WriteLn('''Bob'' está en el HashSet: ', contains(my_hash_set, 'Bob'));
-    show_hashset_state(my_hash_set);
-    WriteLn('--------------------');
-
-    add(my_hash_set, 'Siri');
-    WriteLn('''Siri'' está en el HashSet: ', contains(my_hash_set, 'Siri'));
-    show_hashset_state(my_hash_set);
-    WriteLn('--------------------');
-
-    add(my_hash_set, 'Pete');
-    WriteLn('''Pete'' está en el HashSet: ', contains(my_hash_set, 'Pete'));
-    show_hashset_state(my_hash_set);
-    WriteLn('--------------------');
-
-
-    // Ejercicio 3.2. Busca una palabra que produzca una coliusión
-    intento := 'AAAA';
-    WriteLn('''', intento, ''' tiene el hash ', hash_function(intento));
-    add(my_hash_set, intento);
-
-    WriteLn('--------------------');
-    show_hashset_state(my_hash_set);
-    clear_hashset(my_hash_set);
-    WriteLn('--------------------');
-    WriteLn('Histograma de colisiones:');
-    histograma_colisiones;
-
-    ReadLn;
+  Readln; // Para pausar la consola y ver los resultados
 end.

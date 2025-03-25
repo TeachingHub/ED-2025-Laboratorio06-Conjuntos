@@ -1,285 +1,193 @@
-program conjuntos_ej2;
+program conjuntos_ej1;
 
-uses
-  SysUtils,
-  uMiConjunto;
+{
+    Ejercicio 2.1: Diferencia simétrica de conjuntos.
+    Dados dos conjuntos A y B, la diferencia simétrica de A y B es el conjunto de elementos que están en A o en B, pero no en ambos.
+    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia simétrica de A y B es [1, 2, 4, 5].
+    Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C la diferencia simétrica de ambos conjuntos.
+}
 
 type
-  TTestResult = record
-    Prueba: string;
-    Resultado: string;
-    ResultadoEsperado: string;
-    OK: string;
-  end;
+    set_of_0_255 = set of 0..255;
 
-var
-  testResults: array of TTestResult;
-  testCount: integer = 0;
 
-procedure AddTestResult(const prueba, resultado, resultadoEsperado: string);
+procedure diferencia_simetrica_conjuntos(A, B: set_of_0_255; var C: set_of_0_255);
 begin
-  Inc(testCount);
-  SetLength(testResults, testCount);
-  testResults[testCount - 1].Prueba := prueba;
-  testResults[testCount - 1].Resultado := resultado;
-  testResults[testCount - 1].ResultadoEsperado := resultadoEsperado;
-  if resultado = resultadoEsperado then
-    testResults[testCount - 1].OK := 'Sí'
-  else
-    testResults[testCount - 1].OK := 'No';
-end;
-
-procedure TestInitialize;
-var
-  c: tConjunto;
-begin
-  init(c);
-  AddTestResult('init', BoolToStr(is_empty_con(c)), BoolToStr(True));
-end;
-
-procedure TestAdd;
-var
-  c: tConjunto;
-begin
-  init(c);
-  add(c, 10);
-  AddTestResult('add (un elemento)', to_string_con(c), '10 ');
-  add(c, 20);
-  AddTestResult('add (dos elementos)', to_string_con(c), '10 20 ');
-  add(c, 10); // Intentar añadir un elemento duplicado
-  AddTestResult('add (elemento duplicado)', to_string_con(c), '10 20 ');
-end;
-
-procedure TestRemove;
-var
-  c: tConjunto;
-begin
-  init(c);
-  add(c, 10);
-  add(c, 20);
-  remove(c, 10);
-  AddTestResult('remove (un elemento)', to_string_con(c), '20 ');
-  remove(c, 30); // Intentar eliminar un elemento que no existe
-  AddTestResult('remove (elemento inexistente)', to_string_con(c), '20 ');
-  remove(c, 20);
-  AddTestResult('remove (último elemento)', to_string_con(c), '');
-end;
-
-procedure TestContains;
-var
-  c: tConjunto;
-begin
-  init(c);
-  add(c, 10);
-  AddTestResult('contains (elemento existente)', BoolToStr(contains(c, 10)), BoolToStr(True));
-  AddTestResult('contains (elemento inexistente)', BoolToStr(contains(c, 20)), BoolToStr(False));
-  init(c);
-  AddTestResult('contains (conjunto vacío)', BoolToStr(contains(c, 10)), BoolToStr(False));
-end;
-
-procedure TestIsEmpty;
-var
-  c: tConjunto;
-begin
-  init(c);
-  AddTestResult('is_empty_con (conjunto vacío)', BoolToStr(is_empty_con(c)), BoolToStr(True));
-  add(c, 10);
-  AddTestResult('is_empty_con (conjunto no vacío)', BoolToStr(is_empty_con(c)), BoolToStr(False));
-end;
-
-procedure TestSize;
-var
-  c: tConjunto;
-begin
-  init(c);
-  AddTestResult('size (conjunto vacío)', IntToStr(size(c)), '0');
-  add(c, 10);
-  AddTestResult('size (un elemento)', IntToStr(size(c)), '1');
-  add(c, 20);
-  AddTestResult('size (dos elementos)', IntToStr(size(c)), '2');
-  add(c, 10); // Intento de añadir duplicado no incrementa el tamaño
-  AddTestResult('size (con duplicado)', IntToStr(size(c)), '2');
-end;
-
-procedure TestToString;
-var
-  c: tConjunto;
-begin
-  init(c);
-  AddTestResult('to_string (conjunto vacío)', to_string_con(c), '');
-  add(c, 30);
-  add(c, 10);
-  add(c, 20);
-  AddTestResult('to_string (conjunto con elementos)', to_string_con(c), '30 10 20 ');
-end;
-
-procedure TestEmpty;
-var
-  c: tConjunto;
-begin
-  init(c);
-  add(c, 10);
-  add(c, 20);
-  empty(c);
-  AddTestResult('empty', to_string_con(c), '');
-  AddTestResult('empty (is_empty_con)', BoolToStr(is_empty_con(c)), BoolToStr(True));
-end;
-
-procedure TestUnion;
-var
-  c1, c2, c3: tConjunto;
-begin
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c1, 2);
-  add(c2, 2);
-  add(c2, 3);
-  union(c1, c2, c3);
-  AddTestResult('union (con elementos comunes)', to_string_con(c3), '1 2 3 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c1, 2);
-  add(c2, 3);
-  add(c2, 4);
-  union(c1, c2, c3);
-  AddTestResult('union (sin elementos comunes)', to_string_con(c3), '1 2 3 4 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  union(c1, c2, c3);
-  AddTestResult('union (ambos vacíos)', to_string_con(c3), '');
-end;
-
-procedure TestIntersection;
-var
-  c1, c2, c3: tConjunto;
-begin
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c1, 2);
-  add(c2, 2);
-  add(c2, 3);
-  intersection(c1, c2, c3);
-  AddTestResult('intersection (con elementos comunes)', to_string_con(c3), '2 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c1, 2);
-  add(c2, 3);
-  add(c2, 4);
-  intersection(c1, c2, c3);
-  AddTestResult('intersection (sin elementos comunes)', to_string_con(c3), '');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c2, 1);
-  intersection(c1, c2, c3);
-  AddTestResult('intersection (un elemento común)', to_string_con(c3), '1 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  intersection(c1, c2, c3);
-  AddTestResult('intersection (ambos vacíos)', to_string_con(c3), '');
-end;
-
-procedure TestDifference;
-var
-  c1, c2, c3: tConjunto;
-begin
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c1, 2);
-  add(c2, 2);
-  add(c2, 3);
-  difference(c1, c2, c3);
-  AddTestResult('difference (con elementos comunes)', to_string_con(c3), '1 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c1, 2);
-  add(c2, 3);
-  add(c2, 4);
-  difference(c1, c2, c3);
-  AddTestResult('difference (sin elementos comunes)', to_string_con(c3), '1 2 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  add(c2, 1);
-  difference(c1, c2, c3);
-  AddTestResult('difference (un elemento común)', to_string_con(c3), '');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  difference(c1, c2, c3);
-  AddTestResult('difference (ambos vacíos)', to_string_con(c3), '');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c1, 1);
-  difference(c1, c2, c3);
-  AddTestResult('difference (segundo vacío)', to_string_con(c3), '1 ');
-
-  init(c1);
-  init(c2);
-  init(c3);
-  add(c2, 1);
-  difference(c1, c2, c3);
-  AddTestResult('difference (primero vacío)', to_string_con(c3), '');
+    WriteLn('Not implemented');
 end;
 
 
-procedure PrintTestResults;
-var
-  i: integer;
+{ Ejercicio 2.2: Es subconjunto.
+    Implementa una función que reciba dos conjuntos A y B y devuelva true si A es subconjunto de B, y false en caso contrario.
+    Por ejemplo, si A = [1, 2] y B = [1, 2, 3], entonces A es subconjunto de B.
+}
+function es_subconjunto(A, B: set_of_0_255): boolean;
 begin
-  Writeln('Prueba':30, 'Resultado':20, 'Resultado Esperado':20, 'OK':5);
-  Writeln(StringOfChar('-', 75));
-  for i := 0 to High(testResults) do
-  begin
-    Writeln(
-      testResults[i].Prueba:30,
-      testResults[i].Resultado:20,
-      testResults[i].ResultadoEsperado:20,
-      testResults[i].OK:5
-    );
-  end;
+    WriteLn('Not implemented');
 end;
 
+
+
+{ Ejercicio 2.3: Intersección de conjuntos.
+    Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la intersección de ambos conjuntos.
+}
+procedure interseccion_conjuntos(A, B: set_of_0_255; var C: set_of_0_255);
 begin
-  TestInitialize;
-  TestAdd;
-  TestRemove;
-  TestContains;
-  TestIsEmpty;
-  TestSize;
-  TestToString;
-  TestEmpty;
-  TestUnion;
-  TestIntersection;
-  TestDifference;
+    WriteLn('Not implemented');
+end;
 
-  PrintTestResults;
 
-  Readln; // Para pausar la consola y ver los resultados
+
+{ Ejercicio 2.4: Unión de conjuntos.
+    Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la unión de ambos conjuntos.
+    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la unión de A y B es [1, 2, 3, 4, 5].
+}
+procedure union_conjuntos(A, B: set_of_0_255; var C: set_of_0_255); 
+begin
+    WriteLn('Not implemented');
+end;
+
+
+
+{ Ejercicio 2.5: Diferencia de conjuntos.
+    Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la diferencia de ambos conjuntos.
+    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia de A y B es [1, 2].
+}
+procedure diferencia_conjuntos(A, B: set_of_0_255; var C: set_of_0_255);
+begin
+    WriteLn('Not implemented');
+end;
+
+
+procedure test_diferencia_simetrica_conjuntos();
+var
+    A, B, C: set of 0..255;
+
+begin
+    A := [1, 2, 3];
+    B := [3, 4, 5];
+    diferencia_simetrica_conjuntos(A, B, C);
+    WriteLn('Diferencia simétrica de A y B: ', C = [1, 2, 4, 5]);
+
+    A := [1, 2, 3, 4];
+    B := [3, 4, 5];
+    diferencia_simetrica_conjuntos(A, B, C);
+    WriteLn('Diferencia simétrica de A y B: ', C = [1, 2, 5]);
+
+    A := [1, 2, 3];
+    B := [1, 2, 3];
+    diferencia_simetrica_conjuntos(A, B, C);
+
+    WriteLn('Diferencia simétrica de A y B: ', C = []);
+end;
+
+
+procedure test_es_subconjunto();
+var
+    A, B: set_of_0_255;
+
+begin
+    A := [1, 2];
+    B := [1, 2, 3];
+    WriteLn('A es subconjunto de B: ', es_subconjunto(A, B));
+
+    A := [1, 2, 3];
+    B := [1, 2, 3];
+    WriteLn('A es subconjunto de B: ', es_subconjunto(A, B));
+
+    A := [1, 2, 3];
+    B := [1, 2];
+    WriteLn('A es subconjunto de B: ', not es_subconjunto(A, B));
+end;
+
+
+procedure test_interseccion_conjuntos();
+var
+    A, B, C: set_of_0_255;
+
+begin
+    A := [1, 2, 3];
+    B := [3, 4, 5];
+    interseccion_conjuntos(A, B, C);
+    WriteLn('Intersección de A y B: ', C = [3]);
+
+    A := [1, 2, 3, 4];
+    B := [3, 4, 5];
+    interseccion_conjuntos(A, B, C);
+    WriteLn('Intersección de A y B: ', C = [3, 4]);
+
+    A := [1, 2, 3];
+    B := [1, 2, 3];
+    interseccion_conjuntos(A, B, C);
+    WriteLn('Intersección de A y B: ',  (C = [1, 2, 3]));
+end;
+
+
+procedure test_union_conjuntos();
+var
+    A, B, C: set_of_0_255;
+
+begin
+    A := [1, 2, 3];
+    B := [3, 4, 5];
+    union_conjuntos(A, B, C);
+    WriteLn('Unión de A y B: ', C = [1, 2, 3, 4, 5]);
+
+    A := [1, 2, 3, 4];
+    B := [3, 4, 5];
+    union_conjuntos(A, B, C);
+    WriteLn('Unión de A y B: ', C = [1, 2, 3, 4, 5]);
+
+    A := [1, 2, 3];
+    B := [1, 2, 3];
+    union_conjuntos(A, B, C);
+    WriteLn('Unión de A y B: ', C = [1, 2, 3]);
+end;
+
+
+procedure test_diferencia_conjuntos();
+var
+    A, B, C: set_of_0_255;
+
+begin  
+    A := [1, 2, 3];
+    B := [3, 4, 5];
+    diferencia_conjuntos(A, B, C);
+    WriteLn('Diferencia de A y B: ', C = [1, 2]);
+
+    A := [1, 2, 3, 4];
+    B := [3, 4, 5];
+    diferencia_conjuntos(A, B, C);
+    WriteLn('Diferencia de A y B: ', C = [1, 2]);
+
+    A := [1, 2, 3];
+    B := [1, 2, 3];
+    diferencia_conjuntos(A, B, C);
+    WriteLn('Diferencia de A y B: ', C = []);
+end;
+
+
+begin
+    WriteLn('Ejercicio 2.1: Diferencia simétrica de conjuntos');
+    test_diferencia_simetrica_conjuntos();
+    WriteLn('-----------------------------------------------');
+
+    WriteLn('Ejercicio 2.2: Es subconjunto');
+    test_es_subconjunto();
+    WriteLn('-----------------------------------------------');
+
+    WriteLn('Ejercicio 2.3: Intersección de conjuntos');
+    test_interseccion_conjuntos();
+    WriteLn('-----------------------------------------------');
+
+    WriteLn('Ejercicio 2.4: Unión de conjuntos');
+    test_union_conjuntos();
+    WriteLn('-----------------------------------------------');
+
+    WriteLn('Ejercicio 2.5: Diferencia de conjuntos');
+    test_diferencia_conjuntos();
+    WriteLn('-----------------------------------------------');
+
+
+    ReadLn; // Para evitar que la consola se cierre inmediatamente
 end.
