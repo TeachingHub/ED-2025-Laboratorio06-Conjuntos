@@ -2,7 +2,7 @@ program conjuntos_ej4;
 
 uses
   SysUtils,
-  uHashTable;
+  uHashMap;
 
 type
   TTestResult = record
@@ -31,15 +31,15 @@ end;
 
 procedure TestInitialize;
 var
-  table: tHashTable;
+  map: tHashMap;
   i: Integer;
   all_empty: Boolean;
 begin
-  initialize(table);
+  initialize(map);
   all_empty := True;
-  for i := Low(table) to High(table) do
+  for i := Low(map) to High(map) do
   begin
-    if table[i].key <> '' then
+    if map[i].key <> '' then
     begin
       all_empty := False;
       Break;
@@ -50,58 +50,58 @@ end;
 
 procedure TestAdd;
 var
-  table: tHashTable;
+  map: tHashMap;
   hash1, hash2: Integer;
 begin
-  initialize(table);
-  add(table, 'clave1', 100);
+  initialize(map);
+  add(map, 'clave1', 100);
   hash1 := hash_function('clave1');
-  AddTestResult('add (un elemento)', Format('[%s: %d]', [table[hash1].key, table[hash1].value]), Format('[%s: %d]', ['clave1', 100]));
+  AddTestResult('add (un elemento)', Format('[%s: %d]', [map[hash1].key, map[hash1].value]), Format('[%s: %d]', ['clave1', 100]));
 
-  add(table, 'clave2', 200);
+  add(map, 'clave2', 200);
   hash2 := hash_function('clave2');
   AddTestResult('add (dos elementos)',
-                Format('[%s: %d], [%s: %d]', [table[hash1].key, table[hash1].value, table[hash2].key, table[hash2].value]),
+                Format('[%s: %d], [%s: %d]', [map[hash1].key, map[hash1].value, map[hash2].key, map[hash2].value]),
                 Format('[%s: %d], [%s: %d]', ['clave1', 100, 'clave2', 200]));
 
-  // Test collision (assuming HashTableSize is small and keys can collide)
+  // Test collision (assuming HashMapSize is small and keys can collide)
   // You might need to choose keys that you expect to collide based on the hash function
-  // For example, with HashTableSize = 10, 'a' (97 mod 10 = 7) and 'k' (107 mod 10 = 7) would collide
-  initialize(table);
-  add(table, 'hola', 1);
-  add(table, 'olah', 11); // This shouldnt overwrite 'hola'
+  // For example, with HashMapSize = 10, 'a' (97 mod 10 = 7) and 'k' (107 mod 10 = 7) would collide
+  initialize(map);
+  add(map, 'hola', 1);
+  add(map, 'olah', 11); // This shouldnt overwrite 'hola'
   hash1 := hash_function('hola');
-  AddTestResult('add (colisión)', Format('[%s: %d]', [table[hash1].key, table[hash1].value]), Format('[%s: %d]', ['hola', 1]));
+  AddTestResult('add (colisión)', Format('[%s: %d]', [map[hash1].key, map[hash1].value]), Format('[%s: %d]', ['hola', 1]));
 end;
 
 procedure TestRemove;
 var
-  table: tHashTable;
+  map: tHashMap;
   hash1, hash_nonexistent: Integer;
 begin
-  initialize(table);
-  add(table, 'clave1', 100);
+  initialize(map);
+  add(map, 'clave1', 100);
   hash1 := hash_function('clave1');
-  remove(table, 'clave1');
-  AddTestResult('remove (elemento existente)', Format('[%s: %d]', [table[hash1].key, table[hash1].value]), Format('[%s: %d]', ['', 0]));
+  remove(map, 'clave1');
+  AddTestResult('remove (elemento existente)', Format('[%s: %d]', [map[hash1].key, map[hash1].value]), Format('[%s: %d]', ['', 0]));
 
-  initialize(table);
-  add(table, 'clave2', 200);
+  initialize(map);
+  add(map, 'clave2', 200);
   hash_nonexistent := hash_function('nonexistent');
-  remove(table, 'nonexistent');
-  AddTestResult('remove (elemento inexistente)', Format('[%s: %d]', [table[hash_function('clave2')].key, table[hash_function('clave2')].value]), Format('[%s: %d]', ['clave2', 200]));
+  remove(map, 'nonexistent');
+  AddTestResult('remove (elemento inexistente)', Format('[%s: %d]', [map[hash_function('clave2')].key, map[hash_function('clave2')].value]), Format('[%s: %d]', ['clave2', 200]));
 end;
 
 procedure TestContains;
 var
-  table: tHashTable;
+  map: tHashMap;
 begin
-  initialize(table);
-  add(table, 'clave1', 100);
-  AddTestResult('contains (elemento existente)', BoolToStr(contains(table, 'clave1')), BoolToStr(True));
-  AddTestResult('contains (elemento inexistente)', BoolToStr(contains(table, 'clave2')), BoolToStr(False));
-  initialize(table);
-  AddTestResult('contains (tabla vacía)', BoolToStr(contains(table, 'clave1')), BoolToStr(False));
+  initialize(map);
+  add(map, 'clave1', 100);
+  AddTestResult('contains (elemento existente)', BoolToStr(contains(map, 'clave1')), BoolToStr(True));
+  AddTestResult('contains (elemento inexistente)', BoolToStr(contains(map, 'clave2')), BoolToStr(False));
+  initialize(map);
+  AddTestResult('contains (tabla vacía)', BoolToStr(contains(map, 'clave1')), BoolToStr(False));
 end;
 
 procedure PrintTestResults;

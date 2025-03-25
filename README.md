@@ -20,9 +20,8 @@
 - [Otros ejercicios propuestos](#otros-ejercicios-propuestos)
     - [Multiset](#multiset)
     - [Añade nuevas funcionalidades a uMiConjunto.pas](#a%C3%B1ade-nuevas-funcionalidades-a-umiconjuntopas)
-    - [Añade nuevas funcionalidades a uHashSet.pas y uHashTable.pas](#a%C3%B1ade-nuevas-funcionalidades-a-uhashsetpas-y-uhashtablepas)
+    - [Añade nuevas funcionalidades a uHashSet.pas y uHashMap.pas](#a%C3%B1ade-nuevas-funcionalidades-a-uhashsetpas-y-uhashmappas)
     - [Implementación de conjuntos genéricos](#implementaci%C3%B3n-de-conjuntos-gen%C3%A9ricos)
-    - [HashTable de Listas](#hashtable-de-listas)
 
 <!-- /TOC -->
 
@@ -190,19 +189,19 @@ Para comprobar si el número de colisiones ha disminuido, ejecuta el programa pr
 Un HashMap es una estructura de datos que permite almacenar pares clave-valor. En este ejercicio, vamos a implementar un HashMap. Para ello, deberás localizar los siguientes ficheros:
 
 - `conjuntos_ej4.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. No debería ser necesario modificar este archivo.
-- `uHashTable.pas`: Unidad que deberás implementar.
+- `uHashMap.pas`: Unidad que deberás implementar.
 
-Nos vamos a centrar en la implementación de la unidad `uHashTable.pas`. En esta unidad, deberás implementar un HashMap que reciba una clave de tipo `string` y un valor de tipo `integer`. 
+Nos vamos a centrar en la implementación de la unidad `uHashMap.pas`. En esta unidad, deberás implementar un HashMap que reciba una clave de tipo `string` y un valor de tipo `integer`. 
 
 De manera similar al ejercicio anterior, crearemos un array de tamaño 10 y utilizaremos una función hash para determinar la posición de la clave en el array. En este caso, la función hash deberá devolver un número entre 0 y 9. Una vez localizada la posición, almacenaremos el par clave-valor en el array. 
 
 Para ello, deberás implementar las siguientes funciones y procedimientos:
 
-- `procedure initialize(var table: tHashTable)`: Inicializa la tabla hash. Esta función deberá inicializar la tabla hash.
-- `procedure add(var table: tHashTable; key: string; value: Integer)`: Añade un par clave-valor a la tabla hash. Esta función deberá añadir un par clave-valor a la tabla hash si la clave no está ya presente. Por simplicidad, no trataremos las colisiones: si no coincide con la clave almacenada en la posición, no se añadirá.
-- `procedure remove(var table: tHashTable; key: string)`: Elimina un par clave-valor de la tabla hash. Esta función deberá eliminar un par clave-valor de la tabla hash si la clave está presente.
-- `function contains(table: tHashTable; key: string): Boolean`: Comprueba si una clave está en la tabla hash. Esta función deberá devolver `true` si la clave está en la tabla hash y `false` en caso contrario.
-- `procedure show_table_state(table: tHashTable)`: Muestra el estado de la tabla hash. Esta función deberá mostrar el estado de la tabla hash.
+- `procedure initialize(var map: tHashMap)`: Inicializa la tabla hash. Esta función deberá inicializar la tabla hash.
+- `procedure add(var map: tHashMap; key: string; value: Integer)`: Añade un par clave-valor a la tabla hash. Esta función deberá añadir un par clave-valor a la tabla hash si la clave no está ya presente. Por simplicidad, no trataremos las colisiones: si no coincide con la clave almacenada en la posición, no se añadirá.
+- `procedure remove(var map: tHashMap; key: string)`: Elimina un par clave-valor de la tabla hash. Esta función deberá eliminar un par clave-valor de la tabla hash si la clave está presente.
+- `function contains(map: tHashMap; key: string): Boolean`: Comprueba si una clave está en la tabla hash. Esta función deberá devolver `true` si la clave está en la tabla hash y `false` en caso contrario.
+- `procedure show_map_state(map: tHashMap)`: Muestra el estado de la tabla hash. Esta función deberá mostrar el estado de la tabla hash.
 - `function hash_function(key: string): Integer`: Función hash que devuelve un número entre 0 y 9. Esta función deberá devolver un número entre 0 y 9 a partir de la clave.
 
 
@@ -238,14 +237,10 @@ Añade las siguientes funcionalidades:
 - Igualdad de conjuntos: Devuelve `true` si `c1` y `c2` son iguales y `false` en caso contrario.
 
 
-## Añade nuevas funcionalidades a `uHashSet.pas` y `uHashTable.pas`
+## Añade nuevas funcionalidades a `uHashSet.pas` y `uHashMap.pas`
 
-Añade las funcionalidades definidas para el conjunto `uMiConjunto.pas` a las unidades `uHashSet.pas` y `uHashTable.pas`.
+Añade las funcionalidades definidas para el conjunto `uMiConjunto.pas` a las unidades `uHashSet.pas` y `uHashMap.pas`.
 
 ## Implementación de conjuntos genéricos
 
-Implementa conjuntos genéricos en Pascal. Para ello, usa la unidad `uTElemento.pas` que contiene la definición de un tipo de dato genérico. Deberás modificar las unidades `uMiConjunto.pas`, `uHashSet.pas` y `uHashTable.pas` para que trabajen con este tipo de dato genérico.
-
-## HashTable de Listas
-
-Implementa una tabla hash similar a la propuesta en el Ejericio 4, pero en lugar de almacenar un valor, almacena una lista enlazada simple.
+Implementa conjuntos genéricos en Pascal. Para ello, usa la unidad `uTElemento.pas` que contiene la definición de un tipo de dato genérico. Deberás modificar las unidades `uMiConjunto.pas`, `uHashSet.pas` y `uHashMap.pas` para que trabajen con este tipo de dato genérico.
