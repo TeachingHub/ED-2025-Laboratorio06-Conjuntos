@@ -18,7 +18,8 @@
 - [¿Cómo enfrentarse a los ejercicios?](#%C2%BFc%C3%B3mo-enfrentarse-a-los-ejercicios)
 - [Ejercicio 1: Introducción a Conjuntos en Pascal](#ejercicio-1-introducci%C3%B3n-a-conjuntos-en-pascal)
 - [Ejercicio 2: Operaciones básicas con conjuntos](#ejercicio-2-operaciones-b%C3%A1sicas-con-conjuntos)
-- [Ejercicio 3: Conjuntos a través de Listas](#ejercicio-3-conjuntos-a-trav%C3%A9s-de-listas)
+- [Ejercicio 3: Parte 1: Conjuntos a través de Listas](#ejercicio-3-parte-1-conjuntos-a-trav%C3%A9s-de-listas)
+- [Ejercicio 3: Parte 2: Bolsas a través de Listas](#ejercicio-3-parte-2-bolsas-a-trav%C3%A9s-de-listas)
 - [Ejercicio 4: Introducción a Conjuntos a través de Arrays y con función Hash](#ejercicio-4-introducci%C3%B3n-a-conjuntos-a-trav%C3%A9s-de-arrays-y-con-funci%C3%B3n-hash)
 - [Ejercicio 5: Creando un HashMap: Clave - Valor Opcional](#ejercicio-5-creando-un-hashmap-clave---valor-opcional)
 - [Ejercicio 6: Aplicación Práctica de Conjuntos - El bingo](#ejercicio-6-aplicaci%C3%B3n-pr%C3%A1ctica-de-conjuntos---el-bingo)
@@ -127,7 +128,7 @@ Diferencia de A y B: TRUE
 -----------------------------------------------
 ```
 
-# Ejercicio 3: Conjuntos a través de Listas
+# Ejercicio 3: Parte 1: Conjuntos a través de Listas
 
 En este ejercicio vamos a crear un conjunto a cuyo almacenamiento interno va a ser una lista enlazada simple. Para ello, deberás localizar los tres siguientes ficheros: 
 
@@ -193,6 +194,20 @@ difference (un elemento común)                                          Sí
    difference (segundo vacío)                  1                   1   Sí
    difference (primero vacío)                                          Sí
 ```
+
+# Ejercicio 3: Parte 2: Bolsas a través de Listas
+
+A partir de la implementación de conjuntos a través de listas enlazadas simples, vamos a implementar una bolsa. Una bolsa es una colección de elementos en la que los elementos pueden repetirse.
+
+Utilzia la unidad `uMiConjunto.pas` que has implementado en el ejercicio anterior y modifícala para que implemente una bolsa en lugar de un conjunto. Para ello, deberás duplicarla y renombrarla como `uMiBolsa.pas`. 
+
+Unicamente deberás implementar las 5 operaciones básicas: 
+- Añadir un elemento (add)
+- Eliminar un elemento (remove)
+- Eliminar todas las ocurrencias de un elemento (remove_all)
+- Multiplicidad de un elemento (multiplicity)
+- Conocer el tamaño o número de elementos (size)
+- Inicializar/crear
 
 
 # Ejercicio 4: Introducción a Conjuntos a través de Arrays y con función Hash
