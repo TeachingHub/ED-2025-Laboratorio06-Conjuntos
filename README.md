@@ -57,7 +57,7 @@ Antes de comenzar con cada uno de los ejercicios:
 
 # Ejercicio 1: Introducción a Conjuntos en Pascal
 
-En este ejercicio vamos a trabajar con conjuntos en Pascal. Un conjunto es una colección de elementos sin orden y sin repetición. En Pascal, los conjuntos son un tipo de dato que permite almacenar elementos de un tipo específico. En este caso, vamos a trabajar con conjuntos de enteros.
+En este ejercicio vamos a trabajar con conjuntos en Pascal. Un conjunto es una colección no ordenada de elementos no repetidos. Pascal ofrece, a diferencia de lo que ocurre con otras estructuras de datos tales como las pilas, colas, listas, etc., soporte para el concepto de conjunto mediante el tipo de dato `set`. Este soporte en Pascal está restringido a almacenar elementos de tipos ordinales y con un máximo de 256 valores posibles (ej. `char`, enumerado, subrango, etc.). En este caso, vamos a trabajar con conjuntos de enteros.
 
 Para hacer este ejercicio debes localizar los siguientes archivos:
 
@@ -66,7 +66,7 @@ Para hacer este ejercicio debes localizar los siguientes archivos:
 
 Localiza el archivo `conjuntos_ej1.pas` y dentro de él, encontrarás el procedimiento `procedure generar_lista_sin_duplicados(var list, aux: tListaSimple);`. Este procedimiento recibe dos listas. La primera lista contiene elementos duplicados y la segunda lista deberá contener los elementos de la primera lista sin duplicados y con un orden ascendente. En otras palabras, se deben copiar los elementos de la primera lista a la segunda lista, pero sin duplicados y ordenados de menor a mayor.
 
-Aunque este ejercicio se pueda hacer perfectamente sin utilizar conjuntos, el objetivo es que practiques con ellos y veas cómo pueden facilitar la resolución de ciertos problemas.
+Aunque este ejercicio se pueda hacer perfectamente sin utilizar conjuntos, el objetivo es que practiques con ellos y veas cómo su uso puede facilitar la resolución de ciertos problemas.
 
 Restricciones:
 - No se puede utilizar la función `copy` para copiar la lista.
