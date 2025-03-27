@@ -99,7 +99,7 @@ En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
 ![Operaciones sobre conjuntos](figs/operaciones.jpg)
 
 Restricciones:
-- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección), + (unión) ni - (diferencia) .
+- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección), + (unión), - (diferencia), ni >< (diferencia simétrica).
   
 Resultado esperado:
 
@@ -210,18 +210,18 @@ Unicamente deberás implementar las 5 operaciones básicas:
 - Inicializar/crear (`initialize`)
 
 
-# Ejercicio 4: Introducción a la implementación de Conjuntos mediante tablas hash (Arrays + función Hash)
+# Ejercicio 4: Introducción a la implementación de Conjuntos mediante Tablas Hash (array + función Hash)
 
-En este ejercicio vamos a implementar conjuntos internamente mediante el uso de arrays y funciones hash. Para ello, deberás localizar los siguientes ficheros:
+En este ejercicio vamos a implementar un conjunto que use como almacenamiento interno una tabla hash, la cual utiliza arrays y funciones hash. Para ello, deberás localizar los siguientes ficheros:
 
 - `conjuntos_ej4$.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. Necesitarás implementar algunas funciones y procedimientos en este archivo.
 - `uHashSet.pas`: Unidad que deberás implementar parcialmente.
 
-Como sabes, el principal problema que tiene implementar un conjunto internamente mediante listas es que conjuntos como el creado en el ejercicio anterior no son eficientes ya que la operación para determinar si un elemento pertenece o no al conjunto es muy costosa en términos de tiempo... y ¡es la más utilizada!. En una implementación básica, esto requerirá recorrer toda la lista para determinar si el elemento está presente o no.
+Como sabes, el principal problema que tiene un conjunto implementado internamente mediante listas -como el creado en el ejercicio anterior- es la eficiencia. El problema principal es que la operación para determinar si un elemento pertenece o no al conjunto es muy costosa en términos de tiempo, cuando resulta que... ¡es la operación más utilizada!. Esto es así porque en una implementación básica, determinar si un elemento está en la lista requerirá frecuentemente recorrer toda la lista.
 
-La potencia de los conjuntos es justo su capacidad para determinar si un elemento está o no en el conjunto de forma muy eficiente. Para ello, por lo general se utilizan funciones hash que permiten determinar la posición de un elemento en el conjunto de forma directa. Por ahora, de las estructuras de datos que conocemos, la manera más eficiente de determinar si algo existe es un array, en el que podemos acceder a cualquier posición en tiempo constante. ASí que, vamos a implementar un conjunto a través de un array y con función hash.
+Como la potencia de los conjuntos es justo su capacidad para determinar si un elemento está o no en el conjunto de forma muy eficiente, por lo general se utilizan arrays y funciones hash que permiten determinar la posición de un elemento en el conjunto de forma directa. Ten en cuenta que, de las estructuras de datos que conocemos, la más eficiente a la hora de determinar si algo existe es un array, en el que podemos acceder a cualquier posición en tiempo constante. Con esto en mente, vamos a implementar un conjunto a través de un array y una función hash.
 
-Una función hash es una función que toma un elemento y devuelve un número entero. Este número entero se utiliza para determinar la posición del elemento en el array. Por ejemplo, si tenemos un array de 10 elementos y la función hash devuelve un número entre 0 y 9, podremos determinar la posición del elemento en el array. En la siguiente imagen se muestra una representación gráfica de estos conceptos y funcionamiento. 
+Pero... ¿qué es una función hash? Una función hash es una función que transforma una clave de un cierto tipo y devuelve un número entero, el cual se utiliza para determinar la posición de dicha clave en el array. Por ejemplo, si tenemos un array de 10 elementos y la función hash devuelve un número entre 0 y 9, el valor que nos de la aplicación de la función hash a una cierta clave (por ejemplo 'HOLA') determinará la posición de la clave 'HOLA' en el array. En la siguiente imagen se muestra una representación gráfica de estos conceptos y funcionamiento. 
 
 ![Función hash](figs/hash.webp)
 
@@ -238,11 +238,11 @@ Una vez lo tengas, ejecuta el fichero `conjuntos_ej4.pas` y comprueba que el con
 
 Ya hemos determinado nuestra primera función hash. Ahora la pregunta inmediata que te debería surgir es... ¿y si dos strings diferentes devuelven el mismo valor? ¿Qué pasa si la suma de los valores ASCII de los caracteres de "hola" y "aloh" es la misma? ¿Cómo podemos solucionar esto? 
 
-Esto es un problema muy común en las funciones hash y se conoce como colisión. En el fichero del programa principal, localiza el Ejercicio 3.2 y trata de buscar una palabra que produzca una colusion con alguna de las palabras previamente añadidas en el conjunto. 
+Esto es un problema muy común en las funciones hash y se conoce como colisión. En el fichero del programa principal, localiza el Ejercicio 4.2 y trata de buscar una palabra que produzca una colusion con alguna de las palabras previamente añadidas en el conjunto. 
 
 En el ejercicio 4.3 que podrás localizar también en el programa principal se te pide que elabores un histograma de las colisiones. Es decir, deberás contar cuántas colusiones se producen tras añadir un conjunto de palabras al conjunto. En concreto, deberás obtener para cada letra (`for letra := 'A' to 'Z' do`) su valor tras aplicar la función hash (`i := hash_function(letra)`) y contar cuántas colisiones se producen para cada letra (`Inc(histograma[i]);`) y el total de colisiones. 
 
-Como último ejercicio se pide que mejores la función hash. En el ejercicio 3.4 deberás implementar una función hash que evite las colisiones. Para ello, deberás modificar la función hash elaborada en el Ejercicio 3.1. Se recomiendo incrementar el número de elementos que se pueden almacenar en el conjunto. 
+Como último ejercicio (4.4) se pide que mejores la función hash. En el ejercicio 3.4 deberás implementar una función hash que evite las colisiones. Para ello, deberás modificar la función hash elaborada en el Ejercicio 3.1. Se recomiendo incrementar el número de elementos que se pueden almacenar en el conjunto. 
 
 Algunas ideas: 
 - En el caso de que haya colisión, buscar una nueva posición en el array.
