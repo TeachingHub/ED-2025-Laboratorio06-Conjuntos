@@ -99,7 +99,7 @@ En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
 ![Operaciones sobre conjuntos](figs/operaciones.jpg)
 
 Restricciones:
-- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección), + (unión), - (diferencia), ni >< (diferencia simétrica).
+- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (intersección), + (unión), - (diferencia), ni >< (diferencia simétrica).
   
 Resultado esperado:
 
@@ -250,7 +250,7 @@ Algunas ideas:
 
 Para comprobar si el número de colisiones ha disminuido, ejecuta el programa principal y comprueba que el histograma ha cambiado.
 
-# Ejercicio 5: Creando un HashMap: Clave - Valor (Opcional)
+# Ejercicio 5: Creando un HashMap: Clave - Valor (Ejercicio avanzado - Opcional pero recomendable para profundizar)
 
 Un HashMap es una estructura de datos que permite almacenar pares clave-valor. En este ejercicio, vamos a implementar un HashMap. Para ello, deberás localizar los siguientes ficheros:
 
@@ -264,12 +264,11 @@ De manera similar al ejercicio anterior, crearemos un array de tamaño 10 y util
 Para ello, deberás implementar las siguientes funciones y procedimientos:
 
 - `procedure initialize(var map: tHashMap)`: Inicializa la tabla hash. Esta función deberá inicializar la tabla hash.
-- `procedure add(var map: tHashMap; key: string; value: Integer)`: Añade un par clave-valor a la tabla hash. Esta función deberá añadir un par clave-valor a la tabla hash si la clave no está ya presente. Por simplicidad, no trataremos las colisiones: si no coincide con la clave almacenada en la posición, no se añadirá.
-- `procedure remove(var map: tHashMap; key: string)`: Elimina un par clave-valor de la tabla hash. Esta función deberá eliminar un par clave-valor de la tabla hash si la clave está presente.
+- `procedure add(var map: tHashMap; key: string; value: Integer)`: Añade un par clave-valor a la tabla hash. Esta función deberá añadir un par clave-valor a la tabla hash si la clave no está ya presente. Por simplicidad, no trataremos las colisiones: si una clave que debe almacenarse en una cierta posición se encuentra con otra clave previamente almacenada en la misma posición, no se añadirá.
+- `procedure remove(var map: tHashMap; key: string)`: Elimina un par clave-valor de la tabla hash. Esta función deberá eliminar un par clave-valor de la tabla hash a partir de su clave, pero solo si la clave está presente.
 - `function contains(map: tHashMap; key: string): Boolean`: Comprueba si una clave está en la tabla hash. Esta función deberá devolver `true` si la clave está en la tabla hash y `false` en caso contrario.
-- `procedure show_map_state(map: tHashMap)`: Muestra el estado de la tabla hash. Esta función deberá mostrar el estado de la tabla hash.
-- `function hash_function(key: string): Integer`: Función hash que devuelve un número entre 0 y 9. Esta función deberá devolver un número entre 0 y 9 a partir de la clave.
-
+- `procedure show_map_state(map: tHashMap)`: Muestra el estado de la tabla hash. Esta función deberá mostrar por pantalla los elementos actualmente en la tabla hash.
+- `function hash_function(key: string): Integer`: Función hash que devuelve un número entre 0 y 9. Esta función deberá devolver, a partir de una clave de tipo string, un entero entre 0 y 9.
 
 Resultado esperado:
 
@@ -288,21 +287,26 @@ contains (elemento inexistente)                            0                    
 ```
 
 
-# Ejercicio 6: Aplicación Práctica de Conjuntos - El bingo
+# Ejercicio 6: Aplicación Práctica de Conjuntos - Bingo
+
 Queremos implementar un juego de bingo en Pascal. El bingo consta de un bombo de 90 bolas (numeradas del 1 al 90) que se van extrayendo y de tantos cartones como jugadores con 10 números del 1 al 90 en cada cartón. Se pide:
-1. Implementar el TAD Bombo_Bingo utilizando un conjunto de enteros del 1 al 90 cuyas operaciones básicas serán:
+
+6.1) Implementar el TAD Bombo_Bingo utilizando un conjunto de enteros del 1 al 90 cuyas operaciones básicas serán:
 - inicializar: deja el bombo listo para empezar a jugar
 - extraer_numero: elige un número de los que aún no han salido y lo retorna
 - introducir_numero: es algo raro, pero a veces necesario devolver un número al bombo, lo cual se hace con esta operación
-- restantes: permite consulta cuántos números quedan en el bombo.
+- restantes: permite consultar cuántos números quedan en el bombo.
+
 Para la implementación interna del conjunto, utiliza un array de booleanos.
-2) Implementar el TAD Cartón_Bingo, que tendrá 15 enteros no repetidos entre 1 y 90 y que incluirá las siguientes operaciones:
+
+6.2) Implementar el TAD Cartón_Bingo, que tendrá 15 enteros no repetidos entre 1 y 90 y que incluirá las siguientes operaciones:
 - inicializar: genera 15 números aleatorios y los deja listos para empezar a jugar
 - tachar_numero: cuando sale del bombo un número que está en su cartón, el jugador debe marcarlo utilizando este método
 - consultar_numero: permite consultar si un cierto número está en el cartón
 - consultar_linea: Se dice que un cartón “canta línea” cuando tiene 5 números de una fila consecutivos ya marcados porque han salido en el juego. Asumiremos que la primera línea son los 5 primeros números, la segunda los 5 siguientes y la tercera los 5 últimos.
 - consultar_bingo: Se dice que un cartón “canta bingo” cuando tiene los 15 números ya marcados porque han salido en el juego.
-3) Implementar el juego siguiendo el siguiente proceso simplificado:
+
+6.3) Implementar el juego siguiendo el siguiente proceso simplificado:
 - Inicializar el bombo y tras determinar el número de cartones, inicializarlos
 - Ir sacando sucesivamente números y anotándolos en los cartones.
 - Cada vez que sale un número, se debe comprobar si hay línea o bingo en algún cartón y si lo hay notificarlo (sacar un msg por pantalla).
@@ -313,8 +317,7 @@ Para la implementación interna del conjunto, utiliza un array de booleanos.
 
 ## Multiset
 
-Un multiconjunto (o multiset) es una generalización de un conjunto que permite que los elementos se repitan. En este ejercicio, deberás implementar un multiconjunto a través de un array y con función hash. Entre las posibles implementaciones, se propone generar un array que almacene un contador de las veces que un elemento ha sido añadido al multiconjunto además del propio elemento.
-
+Una bolsa (o multiset) es una generalización de un conjunto que permite que los elementos se repitan. En este ejercicio, deberás implementar una bolsa utilizando como contenedor interno para los elementos un array y una función hash. Entre las posibles implementaciones, se propone generar un array que almacene un contador de las veces que un elemento ha sido añadido a la bolsa además del propio elemento.
 
 ## Añade nuevas funcionalidades a `uMiConjunto.pas`
 
@@ -323,7 +326,6 @@ Añade las siguientes funcionalidades:
 - Subconjunto: Devuelve `true` si `c1` es un subconjunto de `c2` y `false` en caso contrario.
 - Superconjunto: Devuelve `true` si `c1` es un superconjunto de `c2` y `false` en caso contrario.
 - Igualdad de conjuntos: Devuelve `true` si `c1` y `c2` son iguales y `false` en caso contrario.
-
 
 ## Añade nuevas funcionalidades a `uHashSet.pas` y `uHashMap.pas`
 
