@@ -57,16 +57,16 @@ Antes de comenzar con cada uno de los ejercicios:
 
 # Ejercicio 1: Introducción a Conjuntos en Pascal
 
-En este ejercicio vamos a trabajar con conjuntos en Pascal. Un conjunto es una colección no ordenada de elementos no repetidos. Pascal ofrece, a diferencia de lo que ocurre con otras estructuras de datos tales como las pilas, colas, listas, etc., soporte para el concepto de conjunto mediante el tipo de dato `set`. Este soporte en Pascal está restringido a almacenar elementos de tipos ordinales y con un máximo de 256 valores posibles (ej. `char`, enumerado, subrango, etc.). En este caso, vamos a trabajar con conjuntos de enteros.
+En este ejercicio vamos a trabajar con conjuntos en Pascal. Un conjunto es una colección no ordenada de elementos no repetidos. Pascal ofrece, a diferencia de lo que ocurre con otras estructuras de datos tales como las pilas, colas, listas, etc., soporte para el concepto de conjunto mediante el tipo de dato `set`. Este soporte en Pascal está restringido a almacenar elementos de tipos ordinales y con un máximo de 256 valores posibles (ej. `char`, enumerado, subrango, etc.) y por tanto vamos a trabajar primero con el tipo `set` pero pronto optaremos por realizar nuestra propia implementación de un TAD Conjunto. 
 
-Para hacer este ejercicio debes localizar los siguientes archivos:
+Para comenzar, vamos a trabajar con conjuntos de enteros basándonos en el tipo `set` de Pascal, así que empieza por localizar los siguientes archivos:
 
 - `conjuntos_ej1.pas`: Programa principal en el que deberás implementar las funciones y procedimientos necesarios para trabajar con conjuntos de enteros.
 - `uListaEnlazadaSimple.pas`: Unidad que contiene la definición de una lista enlazada simple para almacenar enteros. Esta unidad ya está implementada y no deberás modificarla.
 
-Localiza el archivo `conjuntos_ej1.pas` y dentro de él, encontrarás el procedimiento `procedure generar_lista_sin_duplicados(var list, aux: tListaSimple);`. Este procedimiento recibe dos listas. La primera lista contiene elementos duplicados y la segunda lista deberá contener los elementos de la primera lista sin duplicados y con un orden ascendente. En otras palabras, se deben copiar los elementos de la primera lista a la segunda lista, pero sin duplicados y ordenados de menor a mayor.
+Localiza el archivo `conjuntos_ej1.pas` y dentro de él, encontrarás el procedimiento `procedure generar_lista_sin_duplicados(var list, aux: tListaSimple);`. Este procedimiento recibe dos listas. La primera lista contiene elementos duplicados. La segunda lista deberás inicializarla para que al final de la ejecución contenga los elementos de la primera lista sin duplicados y en orden ascendente. Usando conjuntos mediante la declaración de un `set`de Pascal, debes copiar los elementos de la primera lista a la segunda lista, eliminando los duplicados y ordenados de menor a mayor.
 
-Aunque este ejercicio se pueda hacer perfectamente sin utilizar conjuntos, el objetivo es que practiques con ellos y veas cómo su uso puede facilitar la resolución de ciertos problemas.
+Aunque este ejercicio puede hacerse sin utilizar conjuntos, el objetivo es que practiques con ellos y veas cómo su uso puede facilitar la resolución de ciertos problemas.
 
 Restricciones:
 - No se puede utilizar la función `copy` para copiar la lista.
@@ -86,20 +86,20 @@ Caso 2: 1 1  -> 1  bien.
 
 # Ejercicio 2: Operaciones básicas con conjuntos
 
-En este ejercicio vamos a seguir trabajando con conjuntos, en particular programaremos algunas de las operaciones básicas que se pueden realizar con conjuntos. Para empezar, localiza el archivo `conjuntos_ej2.pas`. 
+En este ejercicio vamos a seguir trabajando con el soporte para conjuntos que nos da el tipo `set`de Pascal. En particular, programaremos algunas de las operaciones básicas que se pueden realizar con conjuntos. 
 
-En este archivo deberás implementar las siguientes funciones y procedimientos:
-- `diferencia_simetrica_conjuntos`: Dados dos conjuntos A y B, la diferencia simétrica de A y B es el conjunto de elementos que están en A o en B, pero no en ambos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia simétrica de A y B es [1, 2, 4, 5].
+Localiza el archivo `conjuntos_ej2.pas`, en el cual deberás implementar las siguientes funciones y procedimientos:
+- `diferencia_simetrica_conjuntos`: Dados dos conjuntos de enteros A y B, la diferencia simétrica de A y B es el conjunto de elementos que están en A o en B, pero no en ambos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia simétrica de A y B es [1, 2, 4, 5].
 - `es_subconjunto`: Implementa una función que reciba dos conjuntos A y B y devuelva true si A es subconjunto de B, y false en caso contrario. Por ejemplo, si A = [1, 2] y B = [1, 2, 3], entonces A es subconjunto de B.
--`interseccion_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la intersección de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la intersección de A y B es [3].
--`union_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la unión de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la unión de A y B es [1, 2, 3, 4, 5].
--`diferencia_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la diferencia de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia de A y B es [1, 2].
+- `interseccion_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la intersección de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la intersección de A y B es [3].
+- `union_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la unión de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la unión de A y B es [1, 2, 3, 4, 5].
+- `diferencia_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la diferencia de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia de A y B es [1, 2].
 
 En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
 ![Operaciones sobre conjuntos](figs/operaciones.jpg)
 
 Restricciones:
-- No puedes utilizar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección) + (unión) ni - (diferencia) .
+- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección), + (unión) ni - (diferencia) .
   
 Resultado esperado:
 
@@ -131,9 +131,9 @@ Diferencia de A y B: TRUE
 -----------------------------------------------
 ```
 
-# Ejercicio 3: Parte 1: Conjuntos a través de Listas
+# Ejercicio 3: Parte 1: Conjuntos implementados internamente con Listas
 
-En este ejercicio vamos a crear un conjunto a cuyo almacenamiento interno va a ser una lista enlazada simple. Para ello, deberás localizar los tres siguientes ficheros: 
+En este ejercicio vamos a crear un ConjuntoEnteros cuyo almacenamiento interno va a ser una lista enlazada simple. Para ello, deberás localizar los tres siguientes ficheros: 
 
 - `conjuntos_ej3.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio.
 - `uListaEnlazadaSimple.pas`: Unidad que contiene la definición de una lista enlazada simple. Esta unidad ya está implementada y no deberás modificarla.
@@ -141,104 +141,98 @@ En este ejercicio vamos a crear un conjunto a cuyo almacenamiento interno va a s
 
 ¡Atención! Tendras el rol de desarrollador de la unidad `uMiConjunto.pas` pero a la vez, el rol de usuario de la unidad `uListaEnlazadaSimple.pas`. Es decir, deberás utilizar la lista enlazada simple para implementar el conjunto.
 
-Dentro de la unidad `uMiConjunto.pas` deberás implementar un conjunto en Pascal a partir de una lista enlazada simple. Para ello, deberás implementar las siguientes funciones y procedimientos:
+Dentro de la unidad `uMiConjunto.pas` deberás implementar un TAD `ConjuntoEnteros` en Pascal utilizando los tipos y operaciones que ofrece el TAD Lista enlazada simple. Para ello, deberás implementar las siguientes funciones y procedimientos:
 
-- `procedure init(var c: tConjunto)`: Inicializa el conjunto. Esta función deberá inicializar la lista enlazada simple.
+- `procedure initialize(var c: tConjunto)`: Inicializa el conjunto. Esta función deberá inicializar la lista enlazada simple.
 - `procedure add(var c: tConjunto; x: integer)`: Añade un elemento al conjunto. Esta función deberá añadir un elemento a la lista enlazada simple si no está ya presente.
 - `procedure remove(var c: tConjunto; x: integer)`: Elimina un elemento del conjunto. Esta función deberá eliminar un elemento de la lista enlazada simple si está presente.
 - `function contains(c: tConjunto; x: integer): boolean`: Comprueba si un elemento está en el conjunto. Esta función deberá devolver `true` si el elemento está en la lista enlazada simple y `false` en caso contrario.
-- `function is_empty_con(c: tConjunto): boolean`: Comprueba si el conjunto está vacío. Esta función deberá devolver `true` si la lista enlazada simple está vacía y `false` en caso contrario.
+- `function is_empty(c: tConjunto): boolean`: Comprueba si el conjunto está vacío. Esta función deberá devolver `true` si la lista enlazada simple está vacía y `false` en caso contrario.
 - `function size(c: tConjunto): integer;`: Devuelve el número de elementos del conjunto. Esta función deberá devolver el número de elementos de la lista enlazada simple.
-- `function to_string_con(c: tConjunto): string`: Devuelve una cadena con los elementos del conjunto. Esta función deberá devolver una cadena con los elementos de la lista enlazada simple.
-- `procedure empty(var c: tConjunto)`: Vacía el conjunto. Esta función deberá vaciar la lista enlazada simple.
+- `function to_string(c: tConjunto): string`: Devuelve una cadena con los elementos del conjunto. Esta función deberá devolver una cadena con los elementos de la lista enlazada simple.
+- `procedure clear(var c: tConjunto)`: Vacía el conjunto. Esta función deberá vaciar la lista enlazada simple.
 - `procedure union(c1, c2: tConjunto; var c3: tConjunto)`: Realiza la unión de dos conjuntos. Esta función deberá devolver un nuevo conjunto con los elementos de los conjuntos `c1` y `c2`. Por ejemplo, si `c1` contiene los elementos `1, 2, 3` y `c2` contiene los elementos `3, 4, 5`, el conjunto `c3` deberá contener los elementos `1, 2, 3, 4, 5`.
 - `procedure intersection(c1, c2: tConjunto; var c3: tConjunto)`: Realiza la intersección de dos conjuntos. Esta función deberá devolver un nuevo conjunto con los elementos comunes de los conjuntos `c1` y `c2`. Por ejemplo, si `c1` contiene los elementos `1, 2, 3` y `c2` contiene los elementos `3, 4, 5`, el conjunto `c3` deberá contener el elemento `3`.
 - `procedure difference(c1, c2: tConjunto; var c3: tConjunto)`: Realiza la diferencia de dos conjuntos. Esta función deberá devolver un nuevo conjunto con los elementos que están en `c1` pero no en `c2`. Por ejemplo, si `c1` contiene los elementos `1, 2, 3` y `c2` contiene los elementos `3, 4, 5`, el conjunto `c3` deberá contener los elementos `1, 2`.
-
-
-
 
 Resultado esperado:
 
 ```
                         Prueba           Resultado  Resultado Esperado   OK
 ---------------------------------------------------------------------------
-                          init                  -1                  -1  Sí
+                   initialize                  -1                  -1   Sí
              add (un elemento)                 10                  10   Sí
            add (dos elementos)              10 20               10 20   Sí
       add (elemento duplicado)              10 20               10 20   Sí
           remove (un elemento)                 20                  20   Sí
  remove (elemento inexistente)                 20                  20   Sí
-     remove (último elemento)                                          Sí
- contains (elemento existente)                  -1                  -1  Sí
-contains (elemento inexistente)                   0                   0  Sí
-    contains (conjunto vacío)                   0                   0  Sí
-is_empty_con (conjunto vacío)                  -1                  -1  Sí
-is_empty_con (conjunto no vacío)                   0                   0  Sí
-        size (conjunto vacío)                   0                   0  Sí
-            size (un elemento)                   1                   1  Sí
-          size (dos elementos)                   2                   2  Sí
-          size (con duplicado)                   2                   2  Sí
-   to_string (conjunto vacío)                                          Sí
-to_string (conjunto con elementos)           30 10 20            30 10 20   Sí
+     remove (último elemento)                                           Sí
+contains (elemento existente)                  -1                  -1   Sí
+contains (elemento inexistente)                 0                   0   Sí
+    contains (conjunto vacío)                   0                   0   Sí
+    is_empty (conjunto vacío)                  -1                  -1   Sí
+ is_empty (conjunto no vacío)                   0                   0   Sí
+        size (conjunto vacío)                   0                   0   Sí
+           size (un elemento)                   1                   1   Sí
+         size (dos elementos)                   2                   2   Sí
+         size (con duplicado)                   2                   2   Sí
+   to_string (conjunto vacío)                                           Sí
+to_string (conjunto con elementos)       30 10 20            30 10 20   Sí
                          empty                                          Sí
-          empty (is_empty_con)                  -1                  -1  Sí
+          empty (is_empty_con)                 -1                  -1   Sí
  union (con elementos comunes)              1 2 3               1 2 3   Sí
  union (sin elementos comunes)            1 2 3 4             1 2 3 4   Sí
-         union (ambos vacíos)                                          Sí
-intersection (con elementos comunes)                  2                   2   Sí
-intersection (sin elementos comunes)                                          Sí
-intersection (un elemento común)                  1                   1   Sí
-  intersection (ambos vacíos)                                          Sí
-difference (con elementos comunes)                  1                   1   Sí
-difference (sin elementos comunes)                1 2                 1 2   Sí
+         union (ambos vacíos)                                           Sí
+intersection (con elementos comunes)            2                   2   Sí
+intersection (sin elementos comunes)                                    Sí
+intersection (un elemento común)                1                   1   Sí
+  intersection (ambos vacíos)                                           Sí
+difference (con elementos comunes)              1                   1   Sí
+difference (sin elementos comunes)            1 2                 1 2   Sí
 difference (un elemento común)                                          Sí
-    difference (ambos vacíos)                                          Sí
-   difference (segundo vacío)                  1                   1   Sí
-   difference (primero vacío)                                          Sí
+    difference (ambos vacíos)                                           Sí
+   difference (segundo vacío)                   1                   1   Sí
+   difference (primero vacío)                                           Sí
 ```
 
-# Ejercicio 3: Parte 2: Bolsas a través de Listas
+# Ejercicio 3: Parte 2: Bolsas implementadas internamente con  Listas
 
-A partir de la implementación de conjuntos a través de listas enlazadas simples, vamos a implementar una bolsa. Una bolsa es una colección de elementos en la que los elementos pueden repetirse.
+A partir de la implementación del TAD ConjuntoEnteros mediante listas enlazadas simples, vamos a implementar un TAD `BolsaEnteros`. Recuerda que una bolsa es una colección desordenada de elementos en la que estos pueden repetirse.
 
-Utilzia la unidad `uMiConjunto.pas` que has implementado en el ejercicio anterior y modifícala para que implemente una bolsa en lugar de un conjunto. Para ello, deberás duplicarla y renombrarla como `uMiBolsa.pas`. 
+Utilzia la unidad `uMiConjunto.pas` que has implementado en el ejercicio anterior y úsala como base para implementar un TAD `BolsaEnteros` en lugar de un conjunto. Para ello, deberás duplicarla y renombrarla como `uMiBolsa.pas`. 
 
 Unicamente deberás implementar las 5 operaciones básicas: 
-- Añadir un elemento (add)
-- Eliminar un elemento (remove)
-- Eliminar todas las ocurrencias de un elemento (remove_all)
-- Multiplicidad de un elemento (multiplicity)
-- Conocer el tamaño o número de elementos (size)
-- Inicializar/crear
+- Añadir un elemento (`add`)
+- Eliminar un elemento (`remove`)
+- Eliminar todas las ocurrencias de un elemento (`remove_all`)
+- Multiplicidad de un elemento (`multiplicity`)
+- Conocer el tamaño o número de elementos (`size`)
+- Inicializar/crear (`initialize`)
 
 
-# Ejercicio 4: Introducción a Conjuntos a través de Arrays y con función Hash
+# Ejercicio 4: Introducción a la implementación de Conjuntos mediante tablas hash (Arrays + función Hash)
 
-En este ejercicio vamos a trabajar con conjuntos a través de arrays y con función hash. Para ello, deberás localizar los siguientes ficheros:
+En este ejercicio vamos a implementar conjuntos internamente mediante el uso de arrays y funciones hash. Para ello, deberás localizar los siguientes ficheros:
 
 - `conjuntos_ej4$.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. Necesitarás implementar algunas funciones y procedimientos en este archivo.
 - `uHashSet.pas`: Unidad que deberás implementar parcialmente.
 
-El principal problema que tiene el conjunto creado en el ejercicio anterior es que una operación sobre una lista parte determinar si un elemento está no es muy eficiente. En una implementación básica, esto requerirá recorrer toda la lista para determinar si el elemento está presente o no.
+Como sabes, el principal problema que tiene implementar un conjunto internamente mediante listas es que conjuntos como el creado en el ejercicio anterior no son eficientes ya que la operación para determinar si un elemento pertenece o no al conjunto es muy costosa en términos de tiempo... y ¡es la más utilizada!. En una implementación básica, esto requerirá recorrer toda la lista para determinar si el elemento está presente o no.
 
-La potencia de los conjuntos es justo su capacidad para determinar si un elemento está o no en el conjunto de forma muy eficiente. Para ello, se utilizan funciones hash que permiten determinar la posición de un elemento en el conjunto de forma directa.
-
-Por ahora, de las estructuras de datos que conocemos, la manera más eficiente de determinar si algo existe es un array, en el que podemos acceder a cualquier posición en tiempo constante. Por ello, vamos a implementar un conjunto a través de un array y con función hash.
+La potencia de los conjuntos es justo su capacidad para determinar si un elemento está o no en el conjunto de forma muy eficiente. Para ello, por lo general se utilizan funciones hash que permiten determinar la posición de un elemento en el conjunto de forma directa. Por ahora, de las estructuras de datos que conocemos, la manera más eficiente de determinar si algo existe es un array, en el que podemos acceder a cualquier posición en tiempo constante. ASí que, vamos a implementar un conjunto a través de un array y con función hash.
 
 Una función hash es una función que toma un elemento y devuelve un número entero. Este número entero se utiliza para determinar la posición del elemento en el array. Por ejemplo, si tenemos un array de 10 elementos y la función hash devuelve un número entre 0 y 9, podremos determinar la posición del elemento en el array. En la siguiente imagen se muestra una representación gráfica de estos conceptos y funcionamiento. 
 
 ![Función hash](figs/hash.webp)
 
-Ahora la pregunta es, ¿cómo se implementa una función hash? Localiza el fichero `uHashSet.pas` y dentro de él, encontrarás la función `hash_function(value: string): integer;`. Esta función recibe un valor de tipo `string` y devuelve un número entero. En este primer ejercicio (Ejercicio 3.1) Deberás implementar esta función de forma que devuelva un número entero a partir del valor de tipo `string` que recibe. Pero, ¡ojo!, ¿te has fijado que el HashSetSize está definido como un array que tiene tamaño 10? Por lo tanto, la función hash deberá devolver un número entre 0 y 9.
+Ahora la pregunta es, ¿cómo se implementa una función hash? Localiza el fichero `uHashSet.pas` y dentro de él, encontrarás la función `hash_function(value: string): integer;`. Esta función recibe un valor de tipo `string` y devuelve un número entero. En este primer ejercicio (Ejercicio 4.1) Deberás implementar esta función de forma que devuelva un número entero a partir del valor de tipo `string` que recibe. Pero, ¡ojo!, ¿te has fijado que el HashSetSize está definido como un array que tiene tamaño 10? Por lo tanto, la función hash deberá devolver un número entre 0 y 9.
 
-Vamos a hacer una primera función hash muy sencilla. La función hash deberá devolver la suma de los valores ASCII de los caracteres del string. Por ejemplo, si el string es "hola", la función hash deberá devolver 104 + 111 + 108 + 97 = 420. Si el resultado es mayor que 9, deberás devolver el resto de la división entre el resultado y 10.
+Vamos a hacer una primera función hash muy sencilla: una que calcule la suma de los valores ASCII de los caracteres del string. Por ejemplo, si el string es "hola", la función hash deberá devolver 104 + 111 + 108 + 97 = 420, siendo 104 el valos ASCII de la 'h', 11 el de la 'o', etc. Como la suma frecuentemente será mayor que 9, deberás devolver el resto de la suma anterior pero dividida entre el resultado y 10 para que nos de una posición válida en el array.
 
 Pistas:
 - Puedes utilizar la función `ord` para obtener el valor ASCII de un carácter.
 - Puedes utilizar la función `length` para obtener la longitud de un string.
 - Puedes utilizar el operador módulo (`mod`) para obtener el resto de una división.
-
 
 Una vez lo tengas, ejecuta el fichero `conjuntos_ej4.pas` y comprueba que el conjunto funciona correctamente.
 
@@ -246,7 +240,7 @@ Ya hemos determinado nuestra primera función hash. Ahora la pregunta inmediata 
 
 Esto es un problema muy común en las funciones hash y se conoce como colisión. En el fichero del programa principal, localiza el Ejercicio 3.2 y trata de buscar una palabra que produzca una colusion con alguna de las palabras previamente añadidas en el conjunto. 
 
-En el ejercicio 3.3 que podrás localizar también en el programa principal se te pide que elabores un histograma de las colisiones. Es decir, deberás contar cuántas colusiones se producen tras añadir un conjunto de palabras al conjunto. En concreto, deberás obtener para cada letra (`for letra := 'A' to 'Z' do`) su valor tras aplicar la función hash (`i := hash_function(letra)`) y contar cuántas colisiones se producen para cada letra (`Inc(histograma[i]);`) y el total de colisiones. 
+En el ejercicio 4.3 que podrás localizar también en el programa principal se te pide que elabores un histograma de las colisiones. Es decir, deberás contar cuántas colusiones se producen tras añadir un conjunto de palabras al conjunto. En concreto, deberás obtener para cada letra (`for letra := 'A' to 'Z' do`) su valor tras aplicar la función hash (`i := hash_function(letra)`) y contar cuántas colisiones se producen para cada letra (`Inc(histograma[i]);`) y el total de colisiones. 
 
 Como último ejercicio se pide que mejores la función hash. En el ejercicio 3.4 deberás implementar una función hash que evite las colisiones. Para ello, deberás modificar la función hash elaborada en el Ejercicio 3.1. Se recomiendo incrementar el número de elementos que se pueden almacenar en el conjunto. 
 
@@ -285,12 +279,12 @@ Resultado esperado:
                     initialize                            -1                            -1  Sí
              add (un elemento)                 [clave1: 100]                 [clave1: 100]  Sí
            add (dos elementos)  [clave1: 100], [clave2: 200]  [clave1: 100], [clave2: 200]  Sí
-               add (colisión)                     [hola: 1]                     [hola: 1]  Sí
+                add (colisión)                     [hola: 1]                     [hola: 1]  Sí
    remove (elemento existente)                         [: 0]                         [: 0]  Sí
  remove (elemento inexistente)                 [clave2: 200]                 [clave2: 200]  Sí
  contains (elemento existente)                            -1                            -1  Sí
-contains (elemento inexistente)                             0                             0  Sí
-       contains (tabla vacía)                             0                             0  Sí
+contains (elemento inexistente)                            0                             0  Sí
+       contains (tabla vacía)                              0                             0  Sí
 ```
 
 
