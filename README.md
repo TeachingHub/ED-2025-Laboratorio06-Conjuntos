@@ -62,7 +62,7 @@ En este ejercicio vamos a trabajar con conjuntos en Pascal. Un conjunto es una c
 Para hacer este ejercicio debes localizar los siguientes archivos:
 
 - `conjuntos_ej1.pas`: Programa principal en el que deberás implementar las funciones y procedimientos necesarios para trabajar con conjuntos de enteros.
-- `uListaEnlazadaSimple.pas`: Unidad que contiene la definición de una lista enlazada simple. Esta unidad ya está implementada y no deberás modificarla.
+- `uListaEnlazadaSimple.pas`: Unidad que contiene la definición de una lista enlazada simple para almacenar enteros. Esta unidad ya está implementada y no deberás modificarla.
 
 Localiza el archivo `conjuntos_ej1.pas` y dentro de él, encontrarás el procedimiento `procedure generar_lista_sin_duplicados(var list, aux: tListaSimple);`. Este procedimiento recibe dos listas. La primera lista contiene elementos duplicados y la segunda lista deberá contener los elementos de la primera lista sin duplicados y con un orden ascendente. En otras palabras, se deben copiar los elementos de la primera lista a la segunda lista, pero sin duplicados y ordenados de menor a mayor.
 
@@ -86,9 +86,9 @@ Caso 2: 1 1  -> 1  bien.
 
 # Ejercicio 2: Operaciones básicas con conjuntos
 
-En este ejercicio vamos a trabajar con conjuntos en Pascal y vamos a programar algunas de las operaciones básicas que se pueden realizar con conjuntos. Para ello, deberás localizar el archivo `conjuntos_ej2.pas`. 
+En este ejercicio vamos a seguir trabajando con conjuntos, en particular programaremos algunas de las operaciones básicas que se pueden realizar con conjuntos. Para empezar, localiza el archivo `conjuntos_ej2.pas`. 
 
-En este programa deberás implementar las siguientes funciones y procedimientos:
+En este archivo deberás implementar las siguientes funciones y procedimientos:
 - `diferencia_simetrica_conjuntos`: Dados dos conjuntos A y B, la diferencia simétrica de A y B es el conjunto de elementos que están en A o en B, pero no en ambos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia simétrica de A y B es [1, 2, 4, 5].
 - `es_subconjunto`: Implementa una función que reciba dos conjuntos A y B y devuelva true si A es subconjunto de B, y false en caso contrario. Por ejemplo, si A = [1, 2] y B = [1, 2, 3], entonces A es subconjunto de B.
 -`interseccion_conjuntos`: Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la intersección de ambos conjuntos. Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la intersección de A y B es [3].
@@ -98,6 +98,9 @@ En este programa deberás implementar las siguientes funciones y procedimientos:
 En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
 ![Operaciones sobre conjuntos](figs/operaciones.jpg)
 
+Restricciones:
+- No puedes utilizar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección) + (unión) ni - (diferencia) .
+  
 Resultado esperado:
 
 ```
