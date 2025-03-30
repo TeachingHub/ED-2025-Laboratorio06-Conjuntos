@@ -12,8 +12,16 @@ type
 
 
 procedure diferencia_simetrica_conjuntos(A, B: set_of_0_255; var C: set_of_0_255);
+var
+    i: integer;
+
 begin
-    WriteLn('Not implemented');
+    C := [];
+    for i := 0 to 255 do
+    begin
+        if (i in A) xor (i in B) then
+            C := C + [i];
+    end;
 end;
 
 
@@ -22,40 +30,62 @@ end;
     Por ejemplo, si A = [1, 2] y B = [1, 2, 3], entonces A es subconjunto de B.
 }
 function es_subconjunto(A, B: set_of_0_255): boolean;
-begin
-    WriteLn('Not implemented');
-end;
+var
+    i: integer;
+    todos_en_B: boolean;
 
+begin
+    todos_en_B := true;
+    for i := 0 to 255 do
+    begin
+        if (i in A) and not (i in B) then
+            todos_en_B := false;
+    end;
+    es_subconjunto := todos_en_B;
+end;
 
 
 { Ejercicio 2.3: Intersección de conjuntos.
     Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la intersección de ambos conjuntos.
+    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la intersección de A y B es [3].
 }
 procedure interseccion_conjuntos(A, B: set_of_0_255; var C: set_of_0_255);
-begin
-    WriteLn('Not implemented');
-end;
+var
+    i: integer;
 
+begin
+    C := [];
+    for i := 0 to 255 do
+    begin
+        if (i in A) and (i in B) then
+            C := C + [i];
+    end;
+end;
 
 
 { Ejercicio 2.4: Unión de conjuntos.
-    Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la unión de ambos conjuntos.
-    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la unión de A y B es [1, 2, 3, 4, 5].
-}
+ Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la unión de ambos conjuntos.
+    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la unión de A y B es [1, 2, 3, 4, 5].}
 procedure union_conjuntos(A, B: set_of_0_255; var C: set_of_0_255); 
 begin
-    WriteLn('Not implemented');
+    C := A + B;
 end;
-
 
 
 { Ejercicio 2.5: Diferencia de conjuntos.
     Implementa un procedimiento que reciba dos conjuntos A y B y devuelva un conjunto C con la diferencia de ambos conjuntos.
-    Por ejemplo, si A = [1, 2, 3] y B = [3, 4, 5], entonces la diferencia de A y B es [1, 2].
 }
 procedure diferencia_conjuntos(A, B: set_of_0_255; var C: set_of_0_255);
+var
+    i: integer;
+
 begin
-    WriteLn('Not implemented');
+    C := [];
+    for i := 0 to 255 do
+    begin
+        if (i in A) and not (i in B) then
+            C := C + [i];
+    end;
 end;
 
 
