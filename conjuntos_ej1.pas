@@ -17,8 +17,25 @@ end;
     No se permite el uso de las funciones copy ni in_list de la lista enlazada. Además, se deben usar los conjuntos de pascal. 
 }
 procedure generar_lista_sin_duplicados(var list, aux: tListaSimple);
+var
+    conjunto: set of 0..255;
+    x, i: integer;
 begin
-    WriteLn('Not implemented');
+    initialize(aux);
+    conjunto := [];
+    for i:= 1 to num_elems(list) do
+    begin
+        x := first(list);
+        conjunto := conjunto + [x];
+        delete_at_begin(list);
+        insert_at_end(list, x);
+    end;
+    // recorremos todo el conjunto y lo insertamos en la lista auxiliar
+    for x := 0 to 255 do
+    begin
+        if x in conjunto then
+            insert_at_end(aux, x);
+    end;
 end;
 
 
