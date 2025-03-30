@@ -99,7 +99,7 @@ En la siguiente figura puedes ver un ejemplo de operaciones sobre conjuntos:
 ![Operaciones sobre conjuntos](figs/operaciones.jpg)
 
 Restricciones:
-- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (interesección), + (unión) ni - (diferencia) .
+- No puedes usar los operadores predefinidos en Pascal para operaciones entre conjuntos: <= (subconjunto), * (intersección), + (unión), - (diferencia), ni >< (diferencia simétrica).
   
 Resultado esperado:
 
@@ -210,18 +210,18 @@ Unicamente deberás implementar las 5 operaciones básicas:
 - Inicializar/crear (`initialize`)
 
 
-# Ejercicio 4: Introducción a la implementación de Conjuntos mediante tablas hash (Arrays + función Hash)
+# Ejercicio 4: Introducción a la implementación de Conjuntos mediante Tablas Hash (array + función Hash)
 
-En este ejercicio vamos a implementar conjuntos internamente mediante el uso de arrays y funciones hash. Para ello, deberás localizar los siguientes ficheros:
+En este ejercicio vamos a implementar un conjunto que use como almacenamiento interno una tabla hash, la cual utiliza arrays y funciones hash. Para ello, deberás localizar los siguientes ficheros:
 
 - `conjuntos_ej4$.pas`: Programa principal que se utilizará para comprobar que has superado el ejercicio. Necesitarás implementar algunas funciones y procedimientos en este archivo.
 - `uHashSet.pas`: Unidad que deberás implementar parcialmente.
 
-Como sabes, el principal problema que tiene implementar un conjunto internamente mediante listas es que conjuntos como el creado en el ejercicio anterior no son eficientes ya que la operación para determinar si un elemento pertenece o no al conjunto es muy costosa en términos de tiempo... y ¡es la más utilizada!. En una implementación básica, esto requerirá recorrer toda la lista para determinar si el elemento está presente o no.
+Como sabes, el principal problema que tiene un conjunto implementado internamente mediante listas -como el creado en el ejercicio anterior- es la eficiencia. El problema principal es que la operación para determinar si un elemento pertenece o no al conjunto es muy costosa en términos de tiempo, cuando resulta que... ¡es la operación más utilizada!. Esto es así porque en una implementación básica, determinar si un elemento está en la lista requerirá frecuentemente recorrer toda la lista.
 
-La potencia de los conjuntos es justo su capacidad para determinar si un elemento está o no en el conjunto de forma muy eficiente. Para ello, por lo general se utilizan funciones hash que permiten determinar la posición de un elemento en el conjunto de forma directa. Por ahora, de las estructuras de datos que conocemos, la manera más eficiente de determinar si algo existe es un array, en el que podemos acceder a cualquier posición en tiempo constante. ASí que, vamos a implementar un conjunto a través de un array y con función hash.
+Como la potencia de los conjuntos es justo su capacidad para determinar si un elemento está o no en el conjunto de forma muy eficiente, por lo general se utilizan arrays y funciones hash que permiten determinar la posición de un elemento en el conjunto de forma directa. Ten en cuenta que, de las estructuras de datos que conocemos, la más eficiente a la hora de determinar si algo existe es un array, en el que podemos acceder a cualquier posición en tiempo constante. Con esto en mente, vamos a implementar un conjunto a través de un array y una función hash.
 
-Una función hash es una función que toma un elemento y devuelve un número entero. Este número entero se utiliza para determinar la posición del elemento en el array. Por ejemplo, si tenemos un array de 10 elementos y la función hash devuelve un número entre 0 y 9, podremos determinar la posición del elemento en el array. En la siguiente imagen se muestra una representación gráfica de estos conceptos y funcionamiento. 
+Pero... ¿qué es una función hash? Una función hash es una función que transforma una clave de un cierto tipo y devuelve un número entero, el cual se utiliza para determinar la posición de dicha clave en el array. Por ejemplo, si tenemos un array de 10 elementos y la función hash devuelve un número entre 0 y 9, el valor que nos de la aplicación de la función hash a una cierta clave (por ejemplo 'HOLA') determinará la posición de la clave 'HOLA' en el array. En la siguiente imagen se muestra una representación gráfica de estos conceptos y funcionamiento. 
 
 ![Función hash](figs/hash.webp)
 
@@ -238,11 +238,11 @@ Una vez lo tengas, ejecuta el fichero `conjuntos_ej4.pas` y comprueba que el con
 
 Ya hemos determinado nuestra primera función hash. Ahora la pregunta inmediata que te debería surgir es... ¿y si dos strings diferentes devuelven el mismo valor? ¿Qué pasa si la suma de los valores ASCII de los caracteres de "hola" y "aloh" es la misma? ¿Cómo podemos solucionar esto? 
 
-Esto es un problema muy común en las funciones hash y se conoce como colisión. En el fichero del programa principal, localiza el Ejercicio 3.2 y trata de buscar una palabra que produzca una colusion con alguna de las palabras previamente añadidas en el conjunto. 
+Esto es un problema muy común en las funciones hash y se conoce como colisión. En el fichero del programa principal, localiza el Ejercicio 4.2 y trata de buscar una palabra que produzca una colusion con alguna de las palabras previamente añadidas en el conjunto. 
 
 En el ejercicio 4.3 que podrás localizar también en el programa principal se te pide que elabores un histograma de las colisiones. Es decir, deberás contar cuántas colusiones se producen tras añadir un conjunto de palabras al conjunto. En concreto, deberás obtener para cada letra (`for letra := 'A' to 'Z' do`) su valor tras aplicar la función hash (`i := hash_function(letra)`) y contar cuántas colisiones se producen para cada letra (`Inc(histograma[i]);`) y el total de colisiones. 
 
-Como último ejercicio se pide que mejores la función hash. En el ejercicio 3.4 deberás implementar una función hash que evite las colisiones. Para ello, deberás modificar la función hash elaborada en el Ejercicio 3.1. Se recomiendo incrementar el número de elementos que se pueden almacenar en el conjunto. 
+Como último ejercicio (4.4) se pide que mejores la función hash. En el ejercicio 3.4 deberás implementar una función hash que evite las colisiones. Para ello, deberás modificar la función hash elaborada en el Ejercicio 3.1. Se recomiendo incrementar el número de elementos que se pueden almacenar en el conjunto. 
 
 Algunas ideas: 
 - En el caso de que haya colisión, buscar una nueva posición en el array.
@@ -250,7 +250,7 @@ Algunas ideas:
 
 Para comprobar si el número de colisiones ha disminuido, ejecuta el programa principal y comprueba que el histograma ha cambiado.
 
-# Ejercicio 5: Creando un HashMap: Clave - Valor (Opcional)
+# Ejercicio 5: Creando un HashMap: Clave - Valor (Ejercicio avanzado - Opcional pero recomendable para profundizar)
 
 Un HashMap es una estructura de datos que permite almacenar pares clave-valor. En este ejercicio, vamos a implementar un HashMap. Para ello, deberás localizar los siguientes ficheros:
 
@@ -264,12 +264,11 @@ De manera similar al ejercicio anterior, crearemos un array de tamaño 10 y util
 Para ello, deberás implementar las siguientes funciones y procedimientos:
 
 - `procedure initialize(var map: tHashMap)`: Inicializa la tabla hash. Esta función deberá inicializar la tabla hash.
-- `procedure add(var map: tHashMap; key: string; value: Integer)`: Añade un par clave-valor a la tabla hash. Esta función deberá añadir un par clave-valor a la tabla hash si la clave no está ya presente. Por simplicidad, no trataremos las colisiones: si no coincide con la clave almacenada en la posición, no se añadirá.
-- `procedure remove(var map: tHashMap; key: string)`: Elimina un par clave-valor de la tabla hash. Esta función deberá eliminar un par clave-valor de la tabla hash si la clave está presente.
+- `procedure add(var map: tHashMap; key: string; value: Integer)`: Añade un par clave-valor a la tabla hash. Esta función deberá añadir un par clave-valor a la tabla hash si la clave no está ya presente. Por simplicidad, no trataremos las colisiones: si una clave que debe almacenarse en una cierta posición se encuentra con otra clave previamente almacenada en la misma posición, no se añadirá.
+- `procedure remove(var map: tHashMap; key: string)`: Elimina un par clave-valor de la tabla hash. Esta función deberá eliminar un par clave-valor de la tabla hash a partir de su clave, pero solo si la clave está presente.
 - `function contains(map: tHashMap; key: string): Boolean`: Comprueba si una clave está en la tabla hash. Esta función deberá devolver `true` si la clave está en la tabla hash y `false` en caso contrario.
-- `procedure show_map_state(map: tHashMap)`: Muestra el estado de la tabla hash. Esta función deberá mostrar el estado de la tabla hash.
-- `function hash_function(key: string): Integer`: Función hash que devuelve un número entre 0 y 9. Esta función deberá devolver un número entre 0 y 9 a partir de la clave.
-
+- `procedure show_map_state(map: tHashMap)`: Muestra el estado de la tabla hash. Esta función deberá mostrar por pantalla los elementos actualmente en la tabla hash.
+- `function hash_function(key: string): Integer`: Función hash que devuelve un número entre 0 y 9. Esta función deberá devolver, a partir de una clave de tipo string, un entero entre 0 y 9.
 
 Resultado esperado:
 
@@ -288,21 +287,26 @@ contains (elemento inexistente)                            0                    
 ```
 
 
-# Ejercicio 6: Aplicación Práctica de Conjuntos - El bingo
+# Ejercicio 6: Aplicación Práctica de Conjuntos - Bingo
+
 Queremos implementar un juego de bingo en Pascal. El bingo consta de un bombo de 90 bolas (numeradas del 1 al 90) que se van extrayendo y de tantos cartones como jugadores con 10 números del 1 al 90 en cada cartón. Se pide:
-1. Implementar el TAD Bombo_Bingo utilizando un conjunto de enteros del 1 al 90 cuyas operaciones básicas serán:
+
+6.1) Implementar el TAD Bombo_Bingo utilizando un conjunto de enteros del 1 al 90 cuyas operaciones básicas serán:
 - inicializar: deja el bombo listo para empezar a jugar
 - extraer_numero: elige un número de los que aún no han salido y lo retorna
 - introducir_numero: es algo raro, pero a veces necesario devolver un número al bombo, lo cual se hace con esta operación
-- restantes: permite consulta cuántos números quedan en el bombo.
+- restantes: permite consultar cuántos números quedan en el bombo.
+
 Para la implementación interna del conjunto, utiliza un array de booleanos.
-2) Implementar el TAD Cartón_Bingo, que tendrá 15 enteros no repetidos entre 1 y 90 y que incluirá las siguientes operaciones:
+
+6.2) Implementar el TAD Cartón_Bingo, que tendrá 15 enteros no repetidos entre 1 y 90 y que incluirá las siguientes operaciones:
 - inicializar: genera 15 números aleatorios y los deja listos para empezar a jugar
 - tachar_numero: cuando sale del bombo un número que está en su cartón, el jugador debe marcarlo utilizando este método
 - consultar_numero: permite consultar si un cierto número está en el cartón
 - consultar_linea: Se dice que un cartón “canta línea” cuando tiene 5 números de una fila consecutivos ya marcados porque han salido en el juego. Asumiremos que la primera línea son los 5 primeros números, la segunda los 5 siguientes y la tercera los 5 últimos.
 - consultar_bingo: Se dice que un cartón “canta bingo” cuando tiene los 15 números ya marcados porque han salido en el juego.
-3) Implementar el juego siguiendo el siguiente proceso simplificado:
+
+6.3) Implementar el juego siguiendo el siguiente proceso simplificado:
 - Inicializar el bombo y tras determinar el número de cartones, inicializarlos
 - Ir sacando sucesivamente números y anotándolos en los cartones.
 - Cada vez que sale un número, se debe comprobar si hay línea o bingo en algún cartón y si lo hay notificarlo (sacar un msg por pantalla).
@@ -313,8 +317,7 @@ Para la implementación interna del conjunto, utiliza un array de booleanos.
 
 ## Multiset
 
-Un multiconjunto (o multiset) es una generalización de un conjunto que permite que los elementos se repitan. En este ejercicio, deberás implementar un multiconjunto a través de un array y con función hash. Entre las posibles implementaciones, se propone generar un array que almacene un contador de las veces que un elemento ha sido añadido al multiconjunto además del propio elemento.
-
+Una bolsa (o multiset) es una generalización de un conjunto que permite que los elementos se repitan. En este ejercicio, deberás implementar una bolsa utilizando como contenedor interno para los elementos un array y una función hash. Entre las posibles implementaciones, se propone generar un array que almacene un contador de las veces que un elemento ha sido añadido a la bolsa además del propio elemento.
 
 ## Añade nuevas funcionalidades a `uMiConjunto.pas`
 
@@ -323,7 +326,6 @@ Añade las siguientes funcionalidades:
 - Subconjunto: Devuelve `true` si `c1` es un subconjunto de `c2` y `false` en caso contrario.
 - Superconjunto: Devuelve `true` si `c1` es un superconjunto de `c2` y `false` en caso contrario.
 - Igualdad de conjuntos: Devuelve `true` si `c1` y `c2` son iguales y `false` en caso contrario.
-
 
 ## Añade nuevas funcionalidades a `uHashSet.pas` y `uHashMap.pas`
 
